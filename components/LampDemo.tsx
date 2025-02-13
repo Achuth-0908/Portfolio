@@ -108,23 +108,48 @@ export function LampDemo() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="text-center space-y-4"
+            className="flex flex-col items-center justify-center space-y-8"
           >
-            <div className="h-20 flex items-center justify-center">
-              <p className="text-xl md:text-2xl text-slate-300 font-light">
-                {displayText}
-                <span className="animate-pulse">|</span>
-              </p>
-            </div>
-            
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="text-base md:text-lg text-slate-400 mt-6 font-light italic"
+            {/* Profile Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg"
             >
-              Transforming ideas into reality through code.
+              <img
+                src="/achuth's personal.jpg"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
+            {/* "This is me" text */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, duration: 0.5 }}
+              className="text-lg text-slate-300 font-light"
+            >
+              This is me
             </motion.p>
+
+            <div className="text-center space-y-4">
+              <div className="h-20 flex items-center justify-center">
+                <p className="text-xl md:text-2xl text-slate-300 font-light">
+                  {displayText}
+                  <span className="animate-pulse">|</span>
+                </p>
+              </div>
+              
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.5 }}
+                className="text-base md:text-lg text-slate-400 mt-6 font-light italic"
+              >
+                Transforming ideas into reality through code.
+              </motion.p>
+            </div>
           </motion.div>
         </div>
       </div>
