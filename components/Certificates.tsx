@@ -3,8 +3,8 @@
 import { motion } from "framer-motion"
 
 const certificates = [
-  { name: "Supervised Machine Learning", issuer: "Coursera", year: 2024 },
-  { name: "Advanced Learning Algorithms", issuer: "Coursera", year: 2024 },
+  { name: "Supervised Machine Learning: Regression and Classification", issuer: "Coursera", year: 2024 },
+  { name: "Unsupervised Learning, Recommenders, Reinforcement Learning", issuer: "Coursera", year: 2024 },
   { name: "AI with Google TensorFlow", issuer: "SmartInternz", year: 2024 },
 ]
 
