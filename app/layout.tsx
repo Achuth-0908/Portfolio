@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: "Achu's Portfolio",
-  description: 'Created with v0',
+  description: 'A personal portfolio website',
   generator: 'v0.dev',
 }
 
