@@ -14,7 +14,7 @@ const titles = [
   "Competitive Programmer",
 ];
 
-const nameLetters = "G ACHUTH".split("");
+const nameLetters = "G. ACHUTH".split("");
 
 export function LampDemo() {
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
