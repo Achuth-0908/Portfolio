@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useAnimation, useMotionValue } from "framer-motion"
-import type React from "react" 
+import type React from "react"
 
 interface Item {
   content: React.ReactNode
@@ -26,6 +26,7 @@ export const InfiniteMovingCards = ({
   const [duplicatedItems, setDuplicatedItems] = useState<Item[]>([])
   const controls = useAnimation()
   const x = useMotionValue(0)
+  const CARD_WIDTH = 300
 
   useEffect(() => {
     if (containerRef.current) {
@@ -35,38 +36,60 @@ export const InfiniteMovingCards = ({
 
   useEffect(() => {
     if (containerWidth > 0) {
-      const totalWidth = items.length * 300 // Assuming each card is 300px wide
-      const duplicateCount = Math.ceil(containerWidth / totalWidth) + 1
+      const totalWidth = items.length * CARD_WIDTH
+      const duplicateCount = Math.ceil(containerWidth / totalWidth) + 2
       setDuplicatedItems(Array(duplicateCount).fill(items).flat())
     }
   }, [items, containerWidth])
 
   useEffect(() => {
     if (duplicatedItems.length > 0) {
-      const totalWidth = duplicatedItems.length * 300
+      const totalWidth = duplicatedItems.length * CARD_WIDTH
       const duration = totalWidth / (speed === "fast" ? 50 : 25)
       controls.start({
         x: direction === "right" ? -totalWidth : totalWidth,
         transition: {
           duration,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "loop",
+          repeat: Infinity,
           ease: "linear",
         },
       })
     }
   }, [controls, direction, duplicatedItems, speed])
 
+  const handleManualScroll = (direction: "left" | "right") => {
+    const offset = direction === "left" ? CARD_WIDTH : -CARD_WIDTH
+    x.set(x.get() + offset)
+  }
+
   return (
-    <div ref={containerRef} className={`overflow-hidden ${className}`}>
-      <motion.div style={{ x }} animate={controls} className="flex">
-        {duplicatedItems.map((item, idx) => (
-          <div key={idx} className="flex-shrink-0 w-[300px] h-[200px] mx-2">
-            {item.content}
-          </div>
-        ))}
-      </motion.div>
+    <div className={`relative ${className}`}>
+      <div className="absolute top-1/2 left-2 z-20 transform -translate-y-1/2">
+        <button
+          onClick={() => handleManualScroll("left")}
+          className="bg-blue-700 text-white p-2 rounded-full shadow hover:bg-blue-600"
+        >
+          ◀
+        </button>
+      </div>
+      <div className="absolute top-1/2 right-2 z-20 transform -translate-y-1/2">
+        <button
+          onClick={() => handleManualScroll("right")}
+          className="bg-blue-700 text-white p-2 rounded-full shadow hover:bg-blue-600"
+        >
+          ▶
+        </button>
+      </div>
+
+      <div ref={containerRef} className="overflow-hidden">
+        <motion.div style={{ x }} animate={controls} className="flex">
+          {duplicatedItems.map((item, idx) => (
+            <div key={idx} className="flex-shrink-0 w-[300px] h-[200px] mx-2">
+              {item.content}
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   )
 }
-
