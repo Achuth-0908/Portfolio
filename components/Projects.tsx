@@ -4,37 +4,54 @@ import { motion } from "framer-motion"
 
 const projects = [
   {
-    title: "Online Marketplace for Farmers and Consumers using Flutter",
+    title: "EchoLearn – AI-Powered Speech-Aware Learning Assistant",
     description: [
-      "Developed a multi-login system with role-based access for farmers to list products and consumers to browse, view, and negotiate directly.",
-      "Integrated Firebase Firestore for real-time product listings and negotiations, and Firebase Authentication for secure logins.",
-      "Built a user-friendly interface for product management, price negotiations, and seamless transactions.",
+      "Implemented a real-time NLP pipeline using Whisper for speech-to-text and Gemini API for spoken answer evaluation.",
+      "Integrated T5 and Hugging Face Transformers for question generation and keyword extraction.",
+      "Stack: Python, Streamlit, Whisper, Gemini API, Hugging Face, Flask, Google Translate API.",
     ],
   },
   {
-    title: "Anemia Predictor Web Application",
+    title: "MicroFi – NFT-collateralized P2P Microloan Platform",
     description: [
-      "Developed a ML model that follows the Gradient Boosting Classifier algorithm with blood report data.",
-      "Built a responsive web-application using HTML, CSS and Flask.",
-      "Integrated the ML model to provide real-time Anemia detection.",
+      "Built a full-stack dApp using Solidity smart contracts and GunJS for decentralized real-time storage.",
+      "Enabled NFT-backed loan collateralization with automated liquidation and third-party escrow via Web3.",
+      "Stack: React.js, Solidity, Express.js, Node.js, Tailwind CSS, GunJS.",
+    ],
+  },
+  {
+    title: "FarmVest – Online Marketplace for Farmers and Consumers",
+    description: [
+      "Developed a role-based Flutter app with Firebase Auth for secure multi-user login.",
+      "Integrated Firestore for real-time product listing, price negotiation, and live updates.",
+      "Stack: Flutter, Firebase, Firebase Auth, Firestore, Machine Learning (price prediction).",
+    ],
+  },
+  {
+    title: "HemoGuard – Anemia Predictor Web Application",
+    description: [
+      "Trained a Gradient Boosting Classifier on hematological features for anemia classification.",
+      "Deployed the ML model via Flask and integrated real-time prediction in a responsive UI.",
+      "Stack: HTML, CSS, JavaScript, Flask, MongoDB. Deployed on Render.",
     ],
   },
   {
     title: "Smart Umbrella with Rain Prediction System",
     description: [
-      "Developed an Arduino-based smart umbrella system using ESP32, ESP8266, and DHT11 sensors for real-time weather monitoring and rain prediction using a Random Forest Classifier.",
-      "Implemented Bluetooth communication between the external data collection unit and the umbrella module for seamless data transfer.",
+      "Designed a weather-aware umbrella using ESP32 + ESP8266 with a Random Forest classifier for rain prediction.",
+      "Implemented sensor integration (DHT11), Bluetooth data transmission, and real-time inference logic.",
+      "Stack: Arduino, C++, Random Forest, ESP32, ESP8266, Bluetooth, DHT11.",
     ],
   },
   {
     title: "Supply Chain Management Database System",
     description: [
-      "Developed a comprehensive Oracle SQL-based database system to manage and optimize supply chain operations, ensuring efficient tracking of inventory, orders, and supplier information.",
-      "Implemented secure backend connectivity using Python and integrated data visualization dashboards for actionable insights and enhanced decision-making.",
+      "Engineered a relational schema in Oracle SQL to manage inventory, supplier, and order workflows.",
+      "Integrated backend in Python with role-based queries and data visualization dashboards.",
+      "Stack: Oracle SQL, Python, cx_Oracle.",
     ],
   },
 ]
-
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: (i) => ({
