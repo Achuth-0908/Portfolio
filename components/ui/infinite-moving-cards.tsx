@@ -42,24 +42,34 @@ export const InfiniteMovingCards = ({
     }
   }, [items, containerWidth])
 
+  const startAutoScroll = () => {
+    const totalWidth = duplicatedItems.length * CARD_WIDTH
+    const duration = totalWidth / (speed === "fast" ? 50 : 25)
+    controls.start({
+      x: direction === "right" ? -totalWidth : totalWidth,
+      transition: {
+        duration,
+        repeat: Infinity,
+        ease: "linear",
+      },
+    })
+  }
+
   useEffect(() => {
     if (duplicatedItems.length > 0) {
-      const totalWidth = duplicatedItems.length * CARD_WIDTH
-      const duration = totalWidth / (speed === "fast" ? 50 : 25)
-      controls.start({
-        x: direction === "right" ? -totalWidth : totalWidth,
-        transition: {
-          duration,
-          repeat: Infinity,
-          ease: "linear",
-        },
-      })
+      startAutoScroll()
     }
-  }, [controls, direction, duplicatedItems, speed])
+  }, [duplicatedItems])
 
-  const handleManualScroll = (direction: "left" | "right") => {
-    const offset = direction === "left" ? CARD_WIDTH : -CARD_WIDTH
-    x.set(x.get() + offset)
+  const handleManualScroll = (dir: "left" | "right") => {
+    controls.stop() // pause auto-scroll
+    const moveAmount = dir === "left" ? CARD_WIDTH * 2 : -CARD_WIDTH * 2
+    controls.start({
+      x: x.get() + moveAmount,
+      transition: { duration: 0.5, ease: "easeOut" },
+    }).then(() => {
+      startAutoScroll() // resume auto-scroll
+    })
   }
 
   return (
