@@ -4,24 +4,52 @@ import { motion } from "framer-motion"
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards"
 
 const skills = [
-  { name: "JavaScript", icon: "🟨" },
-  { name: "Python", icon: "🐍" },
-  { name: "Java", icon: "☕" },
-  { name: "C++", icon: "🔷" },
-  { name: "C", icon: "🔵" },
-  { name: "Flutter", icon: "📱" },
+  // Tech Stack
   { name: "React.js", icon: "⚛️" },
   { name: "Express.js", icon: "🚂" },
   { name: "Node.js", icon: "🟩" },
-  { name: "HTML", icon: "🌐" },
-  { name: "CSS", icon: "🎨" },
+  { name: "Tailwind", icon: "💨" },
+  { name: "HTML5", icon: "🌐" },
+  { name: "CSS3", icon: "🎨" },
   { name: "Flask", icon: "🧪" },
+
+  // Frameworks
+  { name: "Scikit-learn", icon: "📊" },
+  { name: "TensorFlow", icon: "🧠" },
+  { name: "Keras", icon: "🔬" },
+  { name: "NLTK", icon: "📚" },
+  { name: "SpaCy", icon: "🧬" },
+  { name: "Hugging Face", icon: "🤗" },
+  { name: "T5", icon: "📝" },
+  { name: "BERT", icon: "🧠" },
+  { name: "SmolAgents", icon: "🎛️" },
+  { name: "LangChain", icon: "🔗" },
+  { name: "LangGraph", icon: "📈" },
+  { name: "LlamaIndex", icon: "🦙" },
+
+  // Databases
+  { name: "MongoDB", icon: "🍃" },
   { name: "MySQL", icon: "🐬" },
   { name: "Firebase", icon: "🔥" },
+
+  // Tools
+  { name: "Git", icon: "🔀" },
+  { name: "GitHub", icon: "🐙" },
+  { name: "AWS", icon: "☁️" },
+  { name: "Streamlit", icon: "📈" },
+  { name: "Vercel", icon: "▲" },
+  { name: "Docker", icon: "🐳" },
+  { name: "GCP", icon: "🌥️" },
   { name: "Figma", icon: "🖌️" },
   { name: "Canva", icon: "🎨" },
-  { name: "TensorFlow", icon: "🧠" },
-  { name: "Git", icon: "🔀" },
+
+  // DS/AI Concepts
+  { name: "Machine Learning", icon: "🤖" },
+  { name: "Deep Learning", icon: "🧠" },
+  { name: "EDA", icon: "📊" },
+  { name: "NLP", icon: "🗣️" },
+  { name: "LLMs", icon: "🧠" },
+  { name: "Generative AI", icon: "✨" },
 ]
 
 export function Skills() {
