@@ -3,9 +3,24 @@
 import { motion } from "framer-motion"
 
 const certificates = [
-  { name: "Supervised Machine Learning: Regression and Classification", issuer: "Coursera", year: 2024 },
-  { name: "Unsupervised Learning, Recommenders, Reinforcement Learning", issuer: "Coursera", year: 2024 },
-  { name: "AI with Google TensorFlow", issuer: "SmartInternz", year: 2024 },
+  {
+    name: "Supervised Machine Learning: Regression and Classification",
+    issuer: "Coursera",
+    year: 2024,
+    link: "https://drive.google.com/file/d/1-08205lOeMCInqddDbC2kZdqz_HterOm/view?usp=sharing"
+  },
+  {
+    name: "Unsupervised Learning, Recommenders, Reinforcement Learning",
+    issuer: "Coursera",
+    year: 2024,
+    link: "https://drive.google.com/file/d/1JGexV4JlNO10y6mn6nD8BgzZzq0V-zRS/view?usp=sharing"
+  },
+  {
+    name: "AI with Google TensorFlow",
+    issuer: "SmartInternz",
+    year: 2024,
+    link: "https://drive.google.com/file/d/1PTn8gTNh-S9KbqifcJLgOBXfzv9Mx0hq/view?usp=sharing"
+  }
 ]
 
 const cardVariants = {
@@ -24,12 +39,14 @@ const cardVariants = {
 export function Certificates() {
   return (
     <div className="relative">
-      {/* Content with glass effect cards */}
       <div className="relative z-10 max-w-3xl mx-auto px-4">
         {certificates.map((cert, index) => (
-          <motion.div
+          <motion.a
             key={index}
-            className="mb-6 p-6 rounded-lg shadow-xl transition-all duration-300
+            href={cert.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block mb-6 p-6 rounded-lg shadow-xl transition-all duration-300
                        backdrop-blur-md bg-blue-800/30 hover:bg-blue-800/40
                        border border-blue-700/50
                        hover:shadow-blue-500/20 hover:-translate-y-1"
@@ -44,10 +61,9 @@ export function Certificates() {
             </h3>
             <p className="text-gray-300 font-medium mb-1">Issuer: {cert.issuer}</p>
             <p className="text-gray-400">Year: {cert.year}</p>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
     </div>
   )
 }
-
