@@ -1,10 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Github } from "lucide-react"
 
 const projects = [
   {
     title: "EchoLearn – AI-Powered Speech-Aware Learning Assistant",
+    github: "https://github.com/yourusername/echolearn",
     description: [
       "Implemented a real-time NLP pipeline using Whisper for speech-to-text and Gemini API for spoken answer evaluation.",
       "Integrated T5 and Hugging Face Transformers for question generation and keyword extraction.",
@@ -13,6 +15,7 @@ const projects = [
   },
   {
     title: "MicroFi – NFT-collateralized P2P Microloan Platform",
+    github: "https://github.com/yourusername/microfi",
     description: [
       "Built a full-stack dApp using Solidity smart contracts and GunJS for decentralized real-time storage.",
       "Enabled NFT-backed loan collateralization with automated liquidation and third-party escrow via Web3.",
@@ -21,6 +24,7 @@ const projects = [
   },
   {
     title: "FarmVest – Online Marketplace for Farmers and Consumers",
+    github: "https://github.com/yourusername/farmvest",
     description: [
       "Developed a role-based Flutter app with Firebase Auth for secure multi-user login.",
       "Integrated Firestore for real-time product listing, price negotiation, and live updates.",
@@ -29,6 +33,7 @@ const projects = [
   },
   {
     title: "HemoGuard – Anemia Predictor Web Application",
+    github: "https://github.com/yourusername/hemoguard",
     description: [
       "Trained a Gradient Boosting Classifier on hematological features for anemia classification.",
       "Deployed the ML model via Flask and integrated real-time prediction in a responsive UI.",
@@ -37,6 +42,7 @@ const projects = [
   },
   {
     title: "Smart Umbrella with Rain Prediction System",
+    github: "https://github.com/yourusername/smart-umbrella",
     description: [
       "Designed a weather-aware umbrella using ESP32 + ESP8266 with a Random Forest classifier for rain prediction.",
       "Implemented sensor integration (DHT11), Bluetooth data transmission, and real-time inference logic.",
@@ -45,6 +51,7 @@ const projects = [
   },
   {
     title: "Supply Chain Management Database System",
+    github: "https://github.com/yourusername/supply-chain-db",
     description: [
       "Engineered a relational schema in Oracle SQL to manage inventory, supplier, and order workflows.",
       "Integrated backend in Python with role-based queries and data visualization dashboards.",
@@ -52,6 +59,7 @@ const projects = [
     ],
   },
 ]
+
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: (i) => ({
@@ -81,7 +89,6 @@ const listItemVariants = {
 export function Projects() {
   return (
     <div className="relative">
-      {/* Content with glass effect cards */}
       <div className="relative z-10 max-w-3xl mx-auto px-4">
         {projects.map((project, index) => (
           <motion.div
@@ -96,9 +103,21 @@ export function Projects() {
             viewport={{ once: true, amount: 0.2 }}
             custom={index}
           >
-            <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              {project.title}
-            </h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                {project.title}
+              </h3>
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+              )}
+            </div>
             <ul className="space-y-2">
               {project.description.map((item, i) => (
                 <motion.li
@@ -120,4 +139,3 @@ export function Projects() {
     </div>
   )
 }
-
