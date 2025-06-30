@@ -16,12 +16,12 @@ const experiences = [
   {
     title: "UI / UX Design Lead",
     company: "Newton School of Coding Club VIT-C",
-    date: "July 2024 – Present",
+    date: "July 2024 – May 2025",
   },
   {
     title: "Marketing and Sponsorship Lead",
     company: "CodeChef VIT-C Student Chapter",
-    date: "April 2024 – Present",
+    date: "April 2024 – May 2025",
   },
 ]
 
