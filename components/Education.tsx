@@ -134,7 +134,7 @@ export function Education() {
             <div className="mt-4 pt-4 border-t border-purple-600">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-300">Academic Progress</span>
-                <span className="text-sm text-pink-400 font-medium">Year 3 of 4</span>
+                <span className="text-sm text-pink-400 font-medium">Year 4 of 4</span>
               </div>
               <div className="w-full bg-purple-900 rounded-full h-2">
                 <div className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full" style={{ width: '75%' }}></div>
