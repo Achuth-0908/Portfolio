@@ -1,4 +1,3 @@
-
 "use client"
 
 import { motion } from "framer-motion"
@@ -67,111 +66,50 @@ const getCategoryColor = (category: string) => {
   return colors[category] || "from-slate-400 to-slate-600"
 }
 
-const getCategoryBorder = (category: string) => {
-  const borders = {
-    "Frontend": "border-cyan-500/30",
-    "Backend": "border-purple-500/30",
-    "AI/ML": "border-pink-500/30",
-    "Database": "border-green-500/30",
-    "Tools": "border-orange-500/30",
-    "Cloud": "border-indigo-500/30",
-    "Design": "border-violet-500/30",
-    "Concepts": "border-teal-500/30",
-  }
-  return borders[category] || "border-slate-500/30"
-}
-
 export function Skills() {
   const skillItems = skills.map((skill, index) => ({
     content: (
       <motion.div
-        className={`w-full h-full flex flex-col items-center justify-center 
-                   bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(skill.category)} 
-                   rounded-2xl p-6 shadow-2xl hover:shadow-cyan-500/10 
-                   transition-all duration-500 relative overflow-hidden group
-                   min-w-[180px] min-h-[140px]`}
+        className="w-full h-full flex flex-col items-center justify-center 
+                   bg-slate-900/70 backdrop-blur-sm border border-slate-700/30 
+                   rounded-2xl p-6 shadow-xl hover:shadow-cyan-500/10 
+                   transition-all duration-300 relative overflow-hidden group
+                   min-w-[180px] min-h-[140px]"
         whileHover={{ 
-          scale: 1.05,
-          boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.15)",
-          borderColor: "rgba(6, 182, 212, 0.4)"
+          scale: 1.03,
+          y: -2,
+          transition: { duration: 0.2, ease: "easeOut" }
         }}
-        whileTap={{ scale: 0.98 }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.5, 
-          delay: index * 0.05,
-          ease: [0.16, 1, 0.3, 1]
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: index * 0.02, duration: 0.3 }}
+        style={{ willChange: 'transform' }}
       >
-        {/* Gradient overlay on hover */}
-        <motion.div
-          className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                     opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-        />
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-          {[...Array(2)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(skill.category)} rounded-full opacity-20`}
-              style={{
-                top: `${20 + i * 40}%`,
-                right: `${10 + i * 30}%`,
-              }}
-              animate={{
-                y: [-5, 5, -5],
-                opacity: [0.2, 0.6, 0.2],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2 + i,
-                repeat: Infinity,
-                delay: i * 0.3,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </div>
+        {/* Simple hover glow */}
+        <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                        opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full">
           <motion.div 
-            className="text-4xl mb-3 filter drop-shadow-lg"
+            className="text-4xl mb-3"
             whileHover={{ 
-              scale: 1.2, 
-              rotate: [0, -10, 10, 0],
-              transition: { duration: 0.5 }
+              scale: 1.1,
+              transition: { duration: 0.2 }
             }}
           >
             {skill.icon}
           </motion.div>
           
-          <motion.h3 
-            className={`text-lg font-semibold text-center leading-tight
-                       bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
+          <h3 className={`text-lg font-semibold text-center leading-tight
+                         bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}>
             {skill.name}
-          </motion.h3>
+          </h3>
           
-          <motion.span 
-            className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
+          <span className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50">
             {skill.category}
-          </motion.span>
+          </span>
         </div>
-
-        {/* Hover glow effect */}
-        <motion.div
-          className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                     opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}
-        />
       </motion.div>
     ),
   }))
@@ -181,56 +119,39 @@ export function Skills() {
       {/* Section Header */}
       <motion.div
         className="text-center mb-12"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <motion.p 
-          className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto"
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
+        <p className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto">
           A comprehensive toolkit spanning full-stack development, AI/ML, cloud technologies, and modern design tools
-        </motion.p>
+        </p>
         
         {/* Category Legend */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-3 mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {Array.from(new Set(skills.map(skill => skill.category))).map((category, index) => (
             <motion.span
               key={category}
               className={`px-3 py-1 text-xs font-medium rounded-full 
-                         bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(category)}
+                         bg-slate-900/60 backdrop-blur-xl border border-slate-700/50
                          bg-gradient-to-r ${getCategoryColor(category)} bg-clip-text text-transparent`}
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
             >
               {category}
             </motion.span>
           ))}
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Skills Cards */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <InfiniteMovingCards 
           items={skillItems} 
@@ -244,10 +165,10 @@ export function Skills() {
       {/* Stats Section */}
       <motion.div
         className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
         {[
           { label: "Technologies", count: skills.length, icon: "⚡" },
@@ -259,10 +180,10 @@ export function Skills() {
             key={stat.label}
             className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
             whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
+              scale: 1.02,
+              transition: { duration: 0.2 }
             }}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
