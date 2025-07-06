@@ -10,9 +10,6 @@ const skills = [
   { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
   { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", category: "Frontend" },
 
-{ name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg", category: "Cloud" },
-{ name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg", category: "Design" },
-
   { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", category: "Frontend" },
   { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", category: "Frontend" },
   { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg", category: "Backend" },
@@ -23,9 +20,10 @@ const skills = [
   { name: "Keras", icon: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg", category: "AI/ML" },
   { name: "NLTK", icon: "https://cdn-icons-png.flaticon.com/512/3534/3534388.png", category: "AI/ML" },
   { name: "BERT", icon: "https://cdn-icons-png.flaticon.com/512/3256/3256625.png", category: "AI/ML" },
-  { name: "SmolAgents", icon: "https://via.placeholder.com/64?text=SA", category: "AI/ML" },
+  { name: "SmolAgents", icon: "https://smol.ai/favicon.svg", category: "AI/ML" },
+
   { name: "LangChain", icon: "https://cdn-icons-png.flaticon.com/512/1350/1350641.png", category: "AI/ML" },
-  { name: "LangGraph", icon: "https://via.placeholder.com/64?text=LG", category: "AI/ML" },
+  { name: "LangGraph", icon: "https://www.langgraph.dev/favicon.ico", category: "AI/ML" },
   { name: "SpaCy", icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg", category: "AI/ML" },
   { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo.svg", category: "AI/ML" },
   { name: "T5", icon: "https://avatars.githubusercontent.com/u/123218969?s=200&v=4", category: "AI/ML" },
@@ -39,7 +37,7 @@ const skills = [
   // Tools & Cloud
   { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", category: "Tools" },
   { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", category: "Tools" },
-  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg", category: "Cloud" },
+  { name: "AWS", icon: "https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png", category: "Cloud" },
   { name: "Streamlit", icon: "https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png", category: "Tools" },
   { name: "Vercel", icon: "https://assets.vercel.com/image/upload/front/favicon/vercel/favicon.ico", category: "Cloud" },
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "Tools" },
