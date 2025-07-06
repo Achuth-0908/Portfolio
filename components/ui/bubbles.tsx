@@ -1,70 +1,42 @@
-"use client"
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 
-import { useEffect, useRef } from "react"
-import { motion, useAnimation, useScroll } from "framer-motion"
-
-export function Bubbles() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll()
-  const controls = useAnimation()
-
-  useEffect(() => {
-    // Calculate viewport-based positions
-    const bubbles = Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      size: Math.random() * 100 + 50,
-      x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000),
-      y: Math.random() * (typeof window !== "undefined" ? window.innerHeight : 1000), // Use viewport height
-      duration: Math.random() * 20 + 10,
-      delay: Math.random() * 5,
-    }))
-
-    controls.start((i) => ({
-      y: [bubbles[i].y, bubbles[i].y - 100], // Reduced movement range
-      x: [bubbles[i].x, bubbles[i].x + (Math.random() - 0.5) * 100], // Reduced movement range
-      transition: {
-        duration: bubbles[i].duration,
-        repeat: Number.POSITIVE_INFINITY,
-        repeatType: "reverse",
-        ease: "easeInOut",
-        delay: bubbles[i].delay,
-      },
-    }))
-
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const scrollValue = scrollY.get()
-        const parallaxValue = scrollValue * 0.5
-        containerRef.current.style.transform = `translateY(${parallaxValue}px)`
-      }
-    }
-
-    scrollY.onChange(handleScroll)
-
-    return () => {
-      scrollY.clearListeners()
-    }
-  }, [controls, scrollY])
+export const Bubbles = () => {
+  const bubbles = Array.from({ length: 8 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 40 + 20,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 2,
+  }));
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 pointer-events-none overflow-hidden"
-      style={{ minHeight: "100%" }}
-    >
-      {Array.from({ length: 20 }, (_, i) => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {bubbles.map((bubble) => (
         <motion.div
-          key={i}
-          custom={i}
-          animate={controls}
-          className="absolute rounded-full bg-gradient-to-br from-cyan-500/10 to-purple-500/10 backdrop-blur-3xl"
+          key={bubble.id}
+          className="absolute rounded-full bg-gradient-to-br from-cyan-400/10 to-purple-600/10 backdrop-blur-sm"
           style={{
-            width: Math.random() * 100 + 50,
-            height: Math.random() * 100 + 50,
+            width: bubble.size,
+            height: bubble.size,
+            left: `${bubble.x}%`,
+            top: `${bubble.y}%`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 15, -15, 0],
+            scale: [1, 1.1, 0.9, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 6 + bubble.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: bubble.delay,
           }}
         />
       ))}
     </div>
-  )
-}
-
+  );
+};
