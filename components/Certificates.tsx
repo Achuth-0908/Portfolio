@@ -36,31 +36,17 @@ const certificates = [
 const cardVariants = {
   hidden: { 
     opacity: 0, 
-    y: 50,
-    scale: 0.95
+    y: 30
   },
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      delay: i * 0.15,
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: "easeOut",
     },
   }),
-}
-
-const skillVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { 
-      duration: 0.3,
-      ease: "easeOut"
-    }
-  },
 }
 
 const getCategoryColor = (category: string) => {
@@ -87,24 +73,14 @@ export function Certificates() {
       {/* Section Header */}
       <motion.div
         className="text-center mb-12"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <motion.p 
-          className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto"
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
+        <p className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto">
           Professional certifications showcasing expertise in machine learning, AI, and modern development practices
-        </motion.p>
+        </p>
       </motion.div>
 
       {/* Certificates Grid */}
@@ -112,8 +88,8 @@ export function Certificates() {
         {certificates.map((cert, index) => (
           <motion.div
             key={index}
-            className={`mb-8 p-6 bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(cert.category)} 
-                       rounded-2xl shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 
+            className={`mb-8 p-6 bg-slate-900/70 backdrop-blur-sm border ${getCategoryBorder(cert.category)} 
+                       rounded-2xl shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 
                        relative overflow-hidden group cursor-pointer`}
             variants={cardVariants}
             initial="hidden"
@@ -121,165 +97,77 @@ export function Certificates() {
             viewport={{ once: true, amount: 0.2 }}
             custom={index}
             whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.15)",
-              borderColor: "rgba(6, 182, 212, 0.4)"
+              scale: 1.01,
+              y: -2,
+              transition: { duration: 0.2, ease: "easeOut" }
             }}
             onClick={() => window.open(cert.link, '_blank')}
           >
-            {/* Gradient overlay on hover */}
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(cert.category)} 
-                         opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-            />
-            
-            {/* Floating particles */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(cert.category)} rounded-full opacity-20`}
-                  style={{
-                    top: `${20 + i * 25}%`,
-                    right: `${10 + i * 20}%`,
-                  }}
-                  animate={{
-                    y: [-8, 8, -8],
-                    opacity: [0.2, 0.6, 0.2],
-                    scale: [1, 1.3, 1],
-                  }}
-                  transition={{
-                    duration: 2.5 + i * 0.5,
-                    repeat: Infinity,
-                    delay: i * 0.4,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
+            {/* Simple hover overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(cert.category)} 
+                           opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
 
             {/* Header Section */}
             <div className="flex items-start justify-between mb-4 relative z-10">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <Award className={`w-6 h-6 bg-gradient-to-r ${getCategoryColor(cert.category)} bg-clip-text text-transparent`} />
-                  </motion.div>
+                  <Award className="w-5 h-5 text-cyan-400" />
                   <h3 className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(cert.category)} leading-tight`}>
                     {cert.name}
                   </h3>
-                  <motion.div 
-                    className="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
                     <CheckCircle className="w-3 h-3" />
                     Certified
-                  </motion.div>
+                  </span>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Building className="w-4 h-4 text-cyan-400" />
                     <span className="text-sm font-medium">{cert.issuer}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Calendar className="w-4 h-4 text-purple-400" />
                     <span className="text-sm">{cert.year}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Star className="w-4 h-4 text-yellow-400" />
                     <span className="text-sm">{cert.category}</span>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
               
-              <motion.div
-                className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700/50 group-hover:border-cyan-500/50 transition-colors duration-300"
-                whileHover={{ scale: 1.1, rotate: 45 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700/50 group-hover:border-cyan-500/50 transition-colors duration-300">
                 <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition-colors duration-300" />
-              </motion.div>
-            </div>
-
-            {/* Description */}
-            <motion.div 
-              className="mb-4 relative z-10"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {cert.description}
-              </p>
-            </motion.div>
-
-            {/* Skills Section */}
-            <div className="relative z-10">
-              <motion.h4 
-                className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.span 
-                  className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(cert.category)} rounded-full`}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.7, 1, 0.7]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                Key Skills Acquired
-              </motion.h4>
-              <div className="flex flex-wrap gap-2">
-                {cert.skills.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skillIndex}
-                    className={`px-3 py-1 text-xs font-medium rounded-full 
-                               bg-slate-800/60 backdrop-blur-sm border ${getCategoryBorder(cert.category)}
-                               text-slate-300 hover:text-white transition-colors duration-200`}
-                    variants={skillVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: skillIndex * 0.1 }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      backgroundColor: "rgba(6, 182, 212, 0.1)"
-                    }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
               </div>
             </div>
 
-            {/* Hover glow effect */}
-            <motion.div
-              className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(cert.category)} 
-                         opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}
-            />
+            {/* Description */}
+            <div className="mb-4 relative z-10">
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {cert.description}
+              </p>
+            </div>
+
+            {/* Skills Section */}
+            <div className="relative z-10">
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                <span className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(cert.category)} rounded-full`} />
+                Key Skills Acquired
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {cert.skills.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    className={`px-3 py-1 text-xs font-medium rounded-full 
+                               bg-slate-800/60 backdrop-blur-sm border ${getCategoryBorder(cert.category)}
+                               text-slate-300`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -287,10 +175,10 @@ export function Certificates() {
       {/* Stats Section */}
       <motion.div
         className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 px-4"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
         {[
           { label: "Certificates", count: certificates.length, icon: "🏆" },
@@ -301,21 +189,15 @@ export function Certificates() {
             key={stat.label}
             className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
             whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
+              scale: 1.02,
+              transition: { duration: 0.2 }
             }}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            <motion.div 
-              className="text-2xl mb-2"
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              transition={{ duration: 0.5 }}
-            >
-              {stat.icon}
-            </motion.div>
+            <div className="text-2xl mb-2">{stat.icon}</div>
             <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {stat.count}
             </div>
