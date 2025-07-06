@@ -210,17 +210,17 @@ export function LampDemo() {
                   animate="animate"
                   whileHover="hover"
                   custom={i}
-                  className={`text-6xl md:text-8xl font-bold inline-block relative
+                  className={`text-6xl md:text-8xl font-bold inline-block relative cursor-pointer
                              ${letter === " " ? "mx-4" : ""}
-                             bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 
-                             bg-clip-text text-transparent
-                             transition-all duration-500
-                             cursor-pointer
-                             drop-shadow-2xl
                              `}
                   style={{
-                    textShadow: "0 0 30px rgba(6, 182, 212, 0.5)",
+                    background: "linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899)",
                     backgroundSize: "200% 100%",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    textShadow: "0 0 30px rgba(6, 182, 212, 0.5)",
+                    filter: "drop-shadow(0 0 20px rgba(6, 182, 212, 0.3))"
                   }}
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
@@ -236,7 +236,13 @@ export function LampDemo() {
                   {letter}
                   {/* Individual letter glow effect */}
                   <motion.span
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent opacity-0"
+                    className="absolute inset-0 opacity-0"
+                    style={{
+                      background: "linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
                     whileHover={{ opacity: 0.8 }}
                     transition={{ duration: 0.3 }}
                   >
