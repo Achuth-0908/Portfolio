@@ -286,7 +286,7 @@ export function Certificates() {
 
       {/* Stats Section */}
       <motion.div
-        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 px-4"
+        className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 px-4"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -294,7 +294,6 @@ export function Certificates() {
       >
         {[
           { label: "Certificates", count: certificates.length, icon: "🏆" },
-          { label: "Platforms", count: Array.from(new Set(certificates.map(c => c.issuer))).length, icon: "🎓" },
           { label: "Skills Covered", count: Array.from(new Set(certificates.flatMap(c => c.skills))).length, icon: "⚡" },
           { label: "Year Earned", count: "2024", icon: "📅" }
         ].map((stat, index) => (
