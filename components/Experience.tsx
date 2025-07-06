@@ -122,9 +122,26 @@ export function Experience() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <p className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto">
+        <motion.p 
+          className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto"
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            backgroundSize: "200% 100%",
+            background: "linear-gradient(90deg, #94a3b8, #60a5fa, #94a3b8)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent"
+          }}
+        >
           Professional journey spanning internships, leadership roles, and collaborative projects across diverse industries
-        </p>
+        </motion.p>
       </motion.div>
 
       {/* Experience Timeline */}
@@ -146,15 +163,47 @@ export function Experience() {
               transition: { duration: 0.2, ease: "easeOut" }
             }}
           >
-            {/* Simple hover overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(exp.category)} 
-                           opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
+            {/* Gradient overlay on hover */}
+            <motion.div
+              className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(exp.category)} 
+                         opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
+            />
+            
+            {/* Floating particles */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full opacity-20`}
+                  style={{
+                    top: `${20 + i * 25}%`,
+                    right: `${10 + i * 20}%`,
+                  }}
+                  animate={{
+                    y: [-8, 8, -8],
+                    opacity: [0.2, 0.6, 0.2],
+                    scale: [1, 1.3, 1],
+                  }}
+                  transition={{
+                    duration: 2.5 + i * 0.5,
+                    repeat: Infinity,
+                    delay: i * 0.4,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
 
             {/* Header Section */}
             <div className="flex items-start justify-between mb-4 relative z-10">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <Briefcase className="w-5 h-5 text-cyan-400" />
+                  <motion.div
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Briefcase className="w-5 h-5 text-cyan-400" />
+                  </motion.div>
                   <h3 className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(exp.category)} leading-tight`}>
                     {exp.title}
                   </h3>
@@ -197,9 +246,13 @@ export function Experience() {
                 </div>
               </div>
               
-              <div className="ml-4 text-3xl">
+              <motion.div
+                className="ml-4 text-3xl"
+                whileHover={{ scale: 1.2, rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              >
                 {getTypeIcon(exp.type)}
-              </div>
+              </motion.div>
             </div>
 
             {/* Description */}
@@ -212,7 +265,18 @@ export function Experience() {
             {/* Key Highlights */}
             <div className="relative z-10">
               <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                <span className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full`} />
+                <motion.span 
+                  className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full`}
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
                 Key Highlights
               </h4>
               <div className="space-y-2">
@@ -248,6 +312,12 @@ export function Experience() {
                 </div>
               </div>
             )}
+
+            {/* Hover glow effect */}
+            <motion.div
+              className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(exp.category)} 
+                         opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
+            />
           </motion.div>
         ))}
       </div>
@@ -278,7 +348,13 @@ export function Experience() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            <div className="text-2xl mb-2">{stat.icon}</div>
+            <motion.div 
+              className="text-2xl mb-2"
+              whileHover={{ scale: 1.2, rotate: 360 }}
+              transition={{ duration: 0.5 }}
+            >
+              {stat.icon}
+            </motion.div>
             <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {stat.count}
             </div>
