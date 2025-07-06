@@ -15,14 +15,17 @@ import { ChevronUp, Menu, X } from "lucide-react"
 const sectionVariants = {
   hidden: { 
     opacity: 0, 
-    y: 20
+    y: 50,
+    scale: 0.98
   },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: { 
-      duration: 0.6, 
-      ease: "easeOut"
+      duration: 0.8, 
+      ease: [0.16, 1, 0.3, 1],
+      staggerChildren: 0.05
     },
   },
 }
@@ -41,19 +44,13 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
   const { scrollY } = useScroll()
   
-  // Simplified parallax effects
+  // Optimized parallax effects with reduced complexity
   const headerOpacity = useTransform(scrollY, [0, 100], [0.85, 0.95])
+  const headerBlur = useTransform(scrollY, [0, 100], [10, 16])
 
-  // Loading state
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
-
-  // Optimized scroll handler
+  // Memoized scroll handler to prevent unnecessary re-renders
   const handleScroll = useCallback(() => {
     const sections = navItems.map(item => item.href.substring(1))
     const scrollPosition = window.scrollY + 200
@@ -104,75 +101,91 @@ export default function App() {
 
   // Simplified animation variants
   const headerVariants = {
-    hidden: { y: -20, opacity: 0 },
+    hidden: { y: -50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.05
       }
     }
   }
 
   const navItemVariants = {
+    hidden: { y: -10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.4, ease: "easeOut" }
+    },
     hover: {
-      scale: 1.02,
-      transition: { duration: 0.2, ease: "easeOut" }
+      scale: 1.05,
+      y: -1,
+      transition: { duration: 0.15, ease: "easeOut" }
     }
   }
 
   const logoVariants = {
+    hidden: { x: -30, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+    },
     hover: {
-      scale: 1.02,
+      scale: 1.03,
       transition: { duration: 0.2, ease: "easeOut" }
     }
   }
 
-  // Optimized floating elements
+  const sectionTitleVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  }
+
+  // Reduced floating elements for better performance
   const floatingElements = useMemo(() => 
-    Array.from({ length: 6 }, (_, i) => (
+    Array.from({ length: 4 }, (_, i) => (
       <motion.div
         key={i}
-        className="absolute w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-20"
+        className="absolute w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-15"
         style={{
-          top: `${20 + (i * 15)}%`,
-          left: `${10 + (i * 12)}%`,
+          top: `${25 + (i * 20)}%`,
+          left: `${15 + (i * 15)}%`,
         }}
         animate={{
-          y: [-10, 10, -10],
-          x: [-5, 5, -5],
-          opacity: [0.2, 0.4, 0.2],
-          scale: [1, 1.2, 1],
+          y: [-15, 15, -15],
+          x: [-8, 8, -8],
+          opacity: [0.15, 0.4, 0.15],
+          scale: [1, 1.3, 1],
         }}
         transition={{
-          duration: 4 + i * 0.5,
+          duration: 5 + i,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: i * 0.5
+          delay: i * 0.8
         }}
       />
     )), []
   )
 
-  if (!isLoaded) {
-    return (
-      <div className="bg-slate-950 min-h-screen flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
-        >
-          Loading...
-        </motion.div>
-      </div>
-    )
-  }
-
   return (
     <div className="bg-slate-950 relative overflow-x-hidden">
-      {/* Floating background elements */}
+      {/* Reduced floating background elements */}
       <div className="fixed inset-0 pointer-events-none">
         {floatingElements}
       </div>
@@ -186,18 +199,21 @@ export default function App() {
           {/* Optimized Header */}
           <motion.header
             className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6"
-            style={{ backdropFilter: "blur(12px)" }}
+            style={{
+              backdropFilter: `blur(${headerBlur}px)`,
+            }}
             variants={headerVariants}
             initial="hidden"
             animate="visible"
           >
             <motion.div
-              className="bg-slate-900/70 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl"
+              className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl"
               style={{ opacity: headerOpacity }}
               whileHover={{ 
-                borderColor: "rgba(148, 163, 184, 0.3)",
-                transition: { duration: 0.2 }
+                boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.4)",
+                borderColor: "rgba(148, 163, 184, 0.25)"
               }}
+              transition={{ duration: 0.2 }}
             >
               <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
                 <motion.h1
@@ -205,18 +221,18 @@ export default function App() {
                   variants={logoVariants}
                   whileHover="hover"
                   onClick={() => scrollToSection("#home")}
+                  style={{
+                    backgroundSize: "200% 100%",
+                  }}
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
                   transition={{
                     backgroundPosition: {
-                      duration: 3,
+                      duration: 4,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }
-                  }}
-                  style={{
-                    backgroundSize: "200% 100%",
                   }}
                 >
                   G ACHUTH
@@ -224,17 +240,18 @@ export default function App() {
 
                 {/* Desktop Navigation */}
                 <ul className="hidden md:flex space-x-2">
-                  {navItems.map((item) => (
+                  {navItems.map((item, index) => (
                     <motion.li
                       key={item.name}
                       variants={navItemVariants}
                       whileHover="hover"
+                      custom={index}
                     >
                       <button
                         onClick={() => scrollToSection(item.href)}
-                        className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 group ${
                           activeSection === item.href.substring(1)
-                            ? "text-cyan-400 bg-cyan-400/10"
+                            ? "text-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/15"
                             : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                         }`}
                       >
@@ -248,9 +265,15 @@ export default function App() {
                           <motion.div
                             className="absolute inset-0 bg-gradient-to-r from-cyan-400/15 to-purple-500/15 rounded-xl"
                             layoutId="activeTab"
-                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
                           />
                         )}
+                        
+                        {/* Hover effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 rounded-xl opacity-0 group-hover:opacity-100"
+                          transition={{ duration: 0.15 }}
+                        />
                       </button>
                     </motion.li>
                   ))}
@@ -294,10 +317,10 @@ export default function App() {
               {isMenuOpen && (
                 <motion.div
                   className="md:hidden mt-4 mx-4"
-                  initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                  initial={{ opacity: 0, y: -15, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-2xl">
                     {navItems.map((item, index) => (
@@ -309,7 +332,7 @@ export default function App() {
                             ? "text-cyan-400 bg-cyan-400/10"
                             : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                         }`}
-                        initial={{ opacity: 0, x: -10 }}
+                        initial={{ opacity: 0, x: -15 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
                         whileTap={{ scale: 0.98 }}
@@ -346,19 +369,24 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Skills
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Skills />
-              </div>
+              </motion.div>
             </motion.section>
 
             {/* Experience Section */}
@@ -370,19 +398,24 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Experience
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Experience />
-              </div>
+              </motion.div>
             </motion.section>
 
             {/* Education Section */}
@@ -394,19 +427,24 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Education
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Education />
-              </div>
+              </motion.div>
             </motion.section>
 
             {/* Certificates Section */}
@@ -418,19 +456,24 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Certificates
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Certificates />
-              </div>
+              </motion.div>
             </motion.section>
 
             {/* Projects Section */}
@@ -442,19 +485,24 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Projects
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Projects />
-              </div>
+              </motion.div>
             </motion.section>
 
             {/* Contact Section */}
@@ -466,79 +514,101 @@ export default function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <div className="max-w-7xl mx-auto">
+              <motion.div
+                className="max-w-7xl mx-auto"
+                variants={sectionTitleVariants}
+              >
                 <motion.h2
-                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
                   whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Contact
+                  <motion.div
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.h2>
                 <Contact />
-              </div>
+              </motion.div>
             </motion.section>
           </main>
 
           {/* Optimized Footer */}
           <motion.footer
             className="relative bg-slate-900/60 backdrop-blur-xl border-t border-slate-700/50 p-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="max-w-4xl mx-auto">
-              <p className="text-slate-400 text-lg mb-4">
+            <motion.div
+              className="max-w-4xl mx-auto"
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.p
+                className="text-slate-400 text-lg"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
                 &copy; {new Date().getFullYear()} G ACHUTH. Crafted with passion and precision.
-              </p>
+              </motion.p>
               
-              <div className="flex justify-center space-x-6">
+              <motion.div
+                className="mt-4 flex justify-center space-x-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 {["💻", "🚀", "⚡", "🎯"].map((emoji, index) => (
                   <motion.span
                     key={index}
                     className="text-2xl cursor-pointer"
                     whileHover={{ 
-                      scale: 1.2,
-                      transition: { duration: 0.2 }
+                      scale: 1.3, 
+                      rotate: 180,
+                      transition: { duration: 0.3 }
                     }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     animate={{
-                      y: [0, -5, 0],
+                      y: [0, -8, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
-                      delay: index * 0.2,
+                      delay: index * 0.3,
                       ease: "easeInOut"
                     }}
                   >
                     {emoji}
                   </motion.span>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.footer>
 
           {/* Scroll to Top Button */}
           <AnimatePresence>
             {showScrollTop && (
               <motion.button
-                className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full shadow-2xl transition-all duration-200"
+                className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-cyan-500/20 transition-all duration-200"
                 onClick={scrollToTop}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0 }}
+                initial={{ opacity: 0, scale: 0, rotate: -90 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0, rotate: 90 }}
                 whileHover={{ 
                   scale: 1.05,
-                  transition: { duration: 0.2 }
+                  boxShadow: "0 15px 30px rgba(6, 182, 212, 0.3)"
                 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
                 <ChevronUp size={24} />
               </motion.button>
