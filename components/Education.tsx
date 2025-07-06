@@ -70,14 +70,48 @@ export function Education() {
             transition: { duration: 0.2, ease: "easeOut" }
           }}
         >
-          {/* Simple hover overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+          {/* Gradient overlay on hover */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+          />
+          
+          {/* Floating particles for completed education */}
+          {edu.status === 'completed' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-green-400 rounded-full opacity-30"
+                  style={{
+                    top: `${20 + i * 20}%`,
+                    right: `${10 + i * 15}%`,
+                  }}
+                  animate={{
+                    y: [-10, 10, -10],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [1, 1.5, 1],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
+          )}
           
           {/* Header Section */}
           <div className="flex items-start justify-between mb-4 relative z-10">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <GraduationCap className="text-cyan-400 w-5 h-5" />
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <GraduationCap className="text-cyan-400 w-5 h-5" />
+                </motion.div>
                 <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
                   {edu.degree}
                 </h3>
@@ -116,7 +150,18 @@ export function Education() {
           {/* Key Points Section */}
           <div className="mt-4 relative z-10">
             <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
+              <motion.span 
+                className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
               Key Highlights
             </h4>
             <div className="space-y-2">
