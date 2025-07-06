@@ -26,7 +26,10 @@ export const InfiniteMovingCards = ({
   const [duplicatedItems, setDuplicatedItems] = useState<Item[]>([])
   const controls = useAnimation()
   const x = useMotionValue(0)
+
   const CARD_WIDTH = 300
+  const GAP = 16
+  const EFFECTIVE_CARD_WIDTH = CARD_WIDTH + GAP
 
   useEffect(() => {
     if (containerRef.current) {
@@ -36,19 +39,20 @@ export const InfiniteMovingCards = ({
 
   useEffect(() => {
     if (containerWidth > 0) {
-      const totalWidth = items.length * CARD_WIDTH
-      const duplicateCount = Math.ceil(containerWidth / totalWidth) + 2
+      const totalWidth = items.length * EFFECTIVE_CARD_WIDTH
+      const duplicateCount = Math.ceil(containerWidth / totalWidth) + 3
       setDuplicatedItems(Array(duplicateCount).fill(items).flat())
     }
   }, [items, containerWidth])
 
   const startAutoScroll = () => {
-    const totalWidth = duplicatedItems.length * CARD_WIDTH
-    const duration = totalWidth / (speed === "fast" ? 50 : 25)
+    const totalWidth = duplicatedItems.length * EFFECTIVE_CARD_WIDTH
+    const speedFactor = speed === "fast" ? 20 : 40
+
     controls.start({
       x: direction === "right" ? -totalWidth : totalWidth,
       transition: {
-        duration,
+        duration: totalWidth / speedFactor,
         repeat: Infinity,
         ease: "linear",
       },
@@ -62,13 +66,14 @@ export const InfiniteMovingCards = ({
   }, [duplicatedItems])
 
   const handleManualScroll = (dir: "left" | "right") => {
-    controls.stop() // pause auto-scroll
-    const moveAmount = dir === "left" ? CARD_WIDTH * 2 : -CARD_WIDTH * 2
+    controls.stop()
+    const moveAmount = dir === "left" ? EFFECTIVE_CARD_WIDTH * 2 : -EFFECTIVE_CARD_WIDTH * 2
+
     controls.start({
       x: x.get() + moveAmount,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" },
     }).then(() => {
-      startAutoScroll() // resume auto-scroll
+      startAutoScroll()
     })
   }
 
@@ -92,7 +97,11 @@ export const InfiniteMovingCards = ({
       </div>
 
       <div ref={containerRef} className="overflow-hidden">
-        <motion.div style={{ x }} animate={controls} className="flex">
+        <motion.div
+          style={{ x }}
+          animate={controls}
+          className="flex"
+        >
           {duplicatedItems.map((item, idx) => (
             <div key={idx} className="flex-shrink-0 w-[300px] h-[200px] mx-2">
               {item.content}
