@@ -96,6 +96,7 @@ export function LampDemo() {
     hover: {
       scale: 1.2,
       rotateY: 360,
+      color: "#60a5fa",
       transition: {
         duration: 0.6,
         ease: "easeInOut"
@@ -147,7 +148,7 @@ export function LampDemo() {
     hover: {
       scale: 1.1,
       rotate: 5,
-      boxShadow: "0 20px 40px rgba(6, 182, 212, 0.3)",
+      boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -198,7 +199,7 @@ export function LampDemo() {
               variants={glowEffect}
               initial="initial"
               animate="animate"
-              className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl"
+              className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-green-500/20 blur-3xl"
             />
             
             <div className="flex items-center justify-center overflow-hidden relative">
@@ -210,39 +211,23 @@ export function LampDemo() {
                   animate="animate"
                   whileHover="hover"
                   custom={i}
-                  className={`text-6xl md:text-8xl font-bold inline-block relative cursor-pointer
+                  className={`text-6xl md:text-8xl font-bold inline-block relative
                              ${letter === " " ? "mx-4" : ""}
+                             bg-gradient-to-r from-blue-800 via-purple-600 to-green-500 
+                             hover:from-blue-400 hover:via-purple-400 hover:to-green-400
+                             bg-clip-text text-transparent
+                             transition-all duration-500
+                             cursor-pointer
+                             drop-shadow-2xl
                              `}
                   style={{
-                    background: "linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899)",
-                    backgroundSize: "200% 100%",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    textShadow: "0 0 30px rgba(6, 182, 212, 0.5)",
-                    filter: "drop-shadow(0 0 20px rgba(6, 182, 212, 0.3))"
-                  }}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    backgroundPosition: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }
+                    textShadow: "0 0 30px rgba(59, 130, 246, 0.5)"
                   }}
                 >
                   {letter}
                   {/* Individual letter glow effect */}
                   <motion.span
-                    className="absolute inset-0 opacity-0"
-                    style={{
-                      background: "linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent opacity-0"
                     whileHover={{ opacity: 0.8 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -271,9 +256,9 @@ export function LampDemo() {
             >
               <motion.div
                 animate={profileControls}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-cyan-500 shadow-2xl relative"
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-2xl relative"
                 style={{
-                  boxShadow: "0 0 50px rgba(6, 182, 212, 0.4)"
+                  boxShadow: "0 0 50px rgba(59, 130, 246, 0.4)"
                 }}
               >
                 <img
@@ -284,7 +269,7 @@ export function LampDemo() {
                 
                 {/* Rotating border effect */}
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 opacity-0"
+                  className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 opacity-0"
                   whileHover={{ 
                     opacity: 1,
                     rotate: 360,
@@ -305,7 +290,7 @@ export function LampDemo() {
                 {[...Array(6)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
+                    className="absolute w-2 h-2 bg-blue-400 rounded-full"
                     style={{
                       top: `${20 + Math.sin(i * Math.PI / 3) * 60}%`,
                       left: `${20 + Math.cos(i * Math.PI / 3) * 60}%`,
@@ -338,7 +323,7 @@ export function LampDemo() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="bg-gradient-to-r from-slate-300 via-cyan-400 to-slate-300 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-slate-300 via-blue-400 to-slate-300 bg-clip-text text-transparent"
                 style={{ backgroundSize: "200% 100%" }}
               >
                 This is me
@@ -361,7 +346,7 @@ export function LampDemo() {
                   transition={{ duration: 0.5 }}
                 >
                   <motion.span
-                    className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent"
                     animate={{
                       backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                     }}
@@ -375,7 +360,7 @@ export function LampDemo() {
                     {displayText}
                   </motion.span>
                   <motion.span
-                    className="text-cyan-400 ml-1"
+                    className="text-blue-400 ml-1"
                     animate={{ opacity: showCursor ? 1 : 0 }}
                     transition={{ duration: 0.1 }}
                   >
@@ -393,9 +378,9 @@ export function LampDemo() {
                   className="text-base md:text-lg text-slate-400 mt-6 font-light italic relative z-10"
                   animate={{
                     textShadow: [
-                      "0 0 10px rgba(6, 182, 212, 0.3)",
-                      "0 0 20px rgba(6, 182, 212, 0.5)",
-                      "0 0 10px rgba(6, 182, 212, 0.3)"
+                      "0 0 10px rgba(59, 130, 246, 0.3)",
+                      "0 0 20px rgba(59, 130, 246, 0.5)",
+                      "0 0 10px rgba(59, 130, 246, 0.3)"
                     ]
                   }}
                   transition={{
@@ -412,7 +397,7 @@ export function LampDemo() {
                   {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-30"
+                      className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30"
                       style={{
                         top: `${Math.random() * 100}%`,
                         left: `${Math.random() * 100}%`,
