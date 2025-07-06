@@ -8,7 +8,11 @@ const skills = [
   { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" },
   { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", category: "Backend" },
   { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
-  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg", category: "Frontend" },
+  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", category: "Frontend" },
+
+{ name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg", category: "Cloud" },
+{ name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg", category: "Design" },
+
   { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", category: "Frontend" },
   { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", category: "Frontend" },
   { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg", category: "Backend" },
@@ -17,14 +21,14 @@ const skills = [
   { name: "Scikit-learn", icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg", category: "AI/ML" },
   { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", category: "AI/ML" },
   { name: "Keras", icon: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg", category: "AI/ML" },
-  { name: "NLTK", icon: "https://www.nltk.org/images/logo.gif", category: "AI/ML" },
+  { name: "NLTK", icon: "https://cdn-icons-png.flaticon.com/512/3534/3534388.png", category: "AI/ML" },
+  { name: "BERT", icon: "https://cdn-icons-png.flaticon.com/512/3256/3256625.png", category: "AI/ML" },
+  { name: "SmolAgents", icon: "https://via.placeholder.com/64?text=SA", category: "AI/ML" },
+  { name: "LangChain", icon: "https://cdn-icons-png.flaticon.com/512/1350/1350641.png", category: "AI/ML" },
+  { name: "LangGraph", icon: "https://via.placeholder.com/64?text=LG", category: "AI/ML" },
   { name: "SpaCy", icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg", category: "AI/ML" },
   { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo.svg", category: "AI/ML" },
   { name: "T5", icon: "https://avatars.githubusercontent.com/u/123218969?s=200&v=4", category: "AI/ML" },
-  { name: "BERT", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Google_BERT_logo.svg/640px-Google_BERT_logo.svg.png", category: "AI/ML" },
-  { name: "SmolAgents", icon: "https://smol-ai.nyc3.cdn.digitaloceanspaces.com/logo-small.png", category: "AI/ML" },
-  { name: "LangChain", icon: "https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/favicon.ico", category: "AI/ML" },
-  { name: "LangGraph", icon: "https://www.langgraph.dev/logo.svg", category: "AI/ML" },
   { name: "LlamaIndex", icon: "https://avatars.githubusercontent.com/u/111250006?s=200&v=4", category: "AI/ML" },
 
   // Databases
@@ -41,7 +45,7 @@ const skills = [
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "Tools" },
   { name: "GCP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", category: "Cloud" },
   { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", category: "Design" },
-  { name: "Canva", icon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg", category: "Design" },
+  { name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg", category: "Design" },
 
   // DS/AI Concepts
   { name: "Machine Learning", icon: "https://cdn-icons-png.flaticon.com/512/4149/4149643.png", category: "Concepts" },
