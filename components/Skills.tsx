@@ -2,55 +2,54 @@
 
 import { motion } from "framer-motion"
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards"
-import { Code2, Server, Database, Cloud, Palette, Brain, BarChart3, GitBranch, Github, Rows as Aws, Figma, Pocket as Docker, Zap, BookOpen, Bot, Rocket, Globe, Layers, Terminal, Cpu, Network, FileText, Link, TrendingUp, MessageSquare, Sparkles } from "lucide-react"
 
 const skills = [
   // Tech Stack
-  { name: "React.js", icon: Code2, category: "Frontend" },
-  { name: "Express.js", icon: Server, category: "Backend" },
-  { name: "Node.js", icon: Terminal, category: "Backend" },
-  { name: "Tailwind", icon: Palette, category: "Frontend" },
-  { name: "HTML5", icon: Globe, category: "Frontend" },
-  { name: "CSS3", icon: Palette, category: "Frontend" },
-  { name: "Flask", icon: Server, category: "Backend" },
+  { name: "React.js", icon: "⚛️", category: "Frontend" },
+  { name: "Express.js", icon: "🚂", category: "Backend" },
+  { name: "Node.js", icon: "🟩", category: "Backend" },
+  { name: "Tailwind", icon: "💨", category: "Frontend" },
+  { name: "HTML5", icon: "🌐", category: "Frontend" },
+  { name: "CSS3", icon: "🎨", category: "Frontend" },
+  { name: "Flask", icon: "🧪", category: "Backend" },
 
   // AI/ML Frameworks
-  { name: "Scikit-learn", icon: BarChart3, category: "AI/ML" },
-  { name: "TensorFlow", icon: Brain, category: "AI/ML" },
-  { name: "Keras", icon: Cpu, category: "AI/ML" },
-  { name: "NLTK", icon: BookOpen, category: "AI/ML" },
-  { name: "SpaCy", icon: Network, category: "AI/ML" },
-  { name: "Hugging Face", icon: Bot, category: "AI/ML" },
-  { name: "T5", icon: FileText, category: "AI/ML" },
-  { name: "BERT", icon: Brain, category: "AI/ML" },
-  { name: "SmolAgents", icon: Bot, category: "AI/ML" },
-  { name: "LangChain", icon: Link, category: "AI/ML" },
-  { name: "LangGraph", icon: TrendingUp, category: "AI/ML" },
-  { name: "LlamaIndex", icon: Database, category: "AI/ML" },
+  { name: "Scikit-learn", icon: "📊", category: "AI/ML" },
+  { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
+  { name: "Keras", icon: "🔬", category: "AI/ML" },
+  { name: "NLTK", icon: "📚", category: "AI/ML" },
+  { name: "SpaCy", icon: "🧬", category: "AI/ML" },
+  { name: "Hugging Face", icon: "🤗", category: "AI/ML" },
+  { name: "T5", icon: "📝", category: "AI/ML" },
+  { name: "BERT", icon: "🧠", category: "AI/ML" },
+  { name: "SmolAgents", icon: "🎛️", category: "AI/ML" },
+  { name: "LangChain", icon: "🔗", category: "AI/ML" },
+  { name: "LangGraph", icon: "📈", category: "AI/ML" },
+  { name: "LlamaIndex", icon: "🦙", category: "AI/ML" },
 
   // Databases
-  { name: "MongoDB", icon: Database, category: "Database" },
-  { name: "MySQL", icon: Database, category: "Database" },
-  { name: "Firebase", icon: Database, category: "Database" },
+  { name: "MongoDB", icon: "🍃", category: "Database" },
+  { name: "MySQL", icon: "🐬", category: "Database" },
+  { name: "Firebase", icon: "🔥", category: "Database" },
 
   // Tools & Cloud
-  { name: "Git", icon: GitBranch, category: "Tools" },
-  { name: "GitHub", icon: Github, category: "Tools" },
-  { name: "AWS", icon: Cloud, category: "Cloud" },
-  { name: "Streamlit", icon: BarChart3, category: "Tools" },
-  { name: "Vercel", icon: Cloud, category: "Cloud" },
-  { name: "Docker", icon: Docker, category: "Tools" },
-  { name: "GCP", icon: Cloud, category: "Cloud" },
-  { name: "Figma", icon: Figma, category: "Design" },
-  { name: "Canva", icon: Palette, category: "Design" },
+  { name: "Git", icon: "🔀", category: "Tools" },
+  { name: "GitHub", icon: "🐙", category: "Tools" },
+  { name: "AWS", icon: "☁️", category: "Cloud" },
+  { name: "Streamlit", icon: "📈", category: "Tools" },
+  { name: "Vercel", icon: "▲", category: "Cloud" },
+  { name: "Docker", icon: "🐳", category: "Tools" },
+  { name: "GCP", icon: "🌥️", category: "Cloud" },
+  { name: "Figma", icon: "🖌️", category: "Design" },
+  { name: "Canva", icon: "🎨", category: "Design" },
 
   // DS/AI Concepts
-  { name: "Machine Learning", icon: Bot, category: "Concepts" },
-  { name: "Deep Learning", icon: Brain, category: "Concepts" },
-  { name: "EDA", icon: BarChart3, category: "Concepts" },
-  { name: "NLP", icon: MessageSquare, category: "Concepts" },
-  { name: "LLMs", icon: Brain, category: "Concepts" },
-  { name: "Generative AI", icon: Sparkles, category: "Concepts" },
+  { name: "Machine Learning", icon: "🤖", category: "Concepts" },
+  { name: "Deep Learning", icon: "🧠", category: "Concepts" },
+  { name: "EDA", icon: "📊", category: "Concepts" },
+  { name: "NLP", icon: "🗣️", category: "Concepts" },
+  { name: "LLMs", icon: "🧠", category: "Concepts" },
+  { name: "Generative AI", icon: "✨", category: "Concepts" },
 ]
 
 const getCategoryColor = (category: string) => {
@@ -82,61 +81,85 @@ const getCategoryBorder = (category: string) => {
 }
 
 export function Skills() {
-  const skillItems = skills.map((skill, index) => {
-    const IconComponent = skill.icon
-    
-    return {
-      content: (
+  const skillItems = skills.map((skill, index) => ({
+    content: (
+      <motion.div
+        className={`w-full h-full flex flex-col items-center justify-center 
+                   bg-slate-900/70 backdrop-blur-sm border ${getCategoryBorder(skill.category)} 
+                   rounded-2xl p-6 shadow-xl hover:shadow-cyan-500/10 
+                   transition-all duration-300 relative overflow-hidden group
+                   min-w-[180px] min-h-[140px]`}
+        whileHover={{ 
+          scale: 1.03,
+          y: -2,
+          transition: { duration: 0.2, ease: "easeOut" }
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: index * 0.02, duration: 0.3 }}
+        style={{ willChange: 'transform' }}
+      >
+        {/* Gradient overlay on hover */}
         <motion.div
-          className={`w-full h-full flex flex-col items-center justify-center 
-                     bg-slate-900/70 backdrop-blur-sm border ${getCategoryBorder(skill.category)} 
-                     rounded-2xl p-6 shadow-xl hover:shadow-cyan-500/10 
-                     transition-all duration-300 relative overflow-hidden group
-                     min-w-[180px] min-h-[140px]`}
-          whileHover={{ 
-            scale: 1.03,
-            y: -2,
-            transition: { duration: 0.2, ease: "easeOut" }
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.02, duration: 0.3 }}
-          style={{ willChange: 'transform' }}
-        >
-          {/* Simple hover overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                          opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
-
-          {/* Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full">
-            <motion.div 
-              className={`mb-3 p-2 rounded-lg bg-gradient-to-r ${getCategoryColor(skill.category)} bg-opacity-10`}
-              whileHover={{ 
-                scale: 1.1,
-                transition: { duration: 0.2 }
+          className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                     opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
+        />
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+          {[...Array(2)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(skill.category)} rounded-full opacity-20`}
+              style={{
+                top: `${20 + i * 40}%`,
+                right: `${10 + i * 30}%`,
               }}
-            >
-              <IconComponent 
-                className={`w-8 h-8 bg-gradient-to-r ${getCategoryColor(skill.category)} bg-clip-text text-transparent`}
-                style={{
-                  filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.3))'
-                }}
-              />
-            </motion.div>
-            
-            <h3 className={`text-lg font-semibold text-center leading-tight
-                           bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}>
-              {skill.name}
-            </h3>
-            
-            <span className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50">
-              {skill.category}
-            </span>
-          </div>
-        </motion.div>
-      ),
-    }
-  })
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.2, 0.4, 0.2],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2 + i,
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full">
+          <motion.div 
+            className="text-4xl mb-3"
+            whileHover={{ 
+              scale: 1.1,
+              transition: { duration: 0.2 }
+            }}
+          >
+            {skill.icon}
+          </motion.div>
+          
+          <h3 className={`text-lg font-semibold text-center leading-tight
+                         bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}>
+            {skill.name}
+          </h3>
+          
+          <span className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50">
+            {skill.category}
+          </span>
+        </div>
+
+        {/* Hover glow effect */}
+        <motion.div
+          className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                     opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
+        />
+      </motion.div>
+    ),
+  }))
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
@@ -148,9 +171,26 @@ export function Skills() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <p className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto">
+        <motion.p 
+          className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto"
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            backgroundSize: "200% 100%",
+            background: "linear-gradient(90deg, #94a3b8, #60a5fa, #94a3b8)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent"
+          }}
+        >
           A comprehensive toolkit spanning full-stack development, AI/ML, cloud technologies, and modern design tools
-        </p>
+        </motion.p>
         
         {/* Category Legend */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -158,11 +198,12 @@ export function Skills() {
             <motion.span
               key={category}
               className={`px-3 py-1 text-xs font-medium rounded-full 
-                         bg-slate-900/60 backdrop-blur-xl border border-slate-700/50
+                         bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(category)}
                          bg-gradient-to-r ${getCategoryColor(category)} bg-clip-text text-transparent`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
             >
               {category}
             </motion.span>
@@ -195,35 +236,39 @@ export function Skills() {
         transition={{ duration: 0.6, delay: 0.2 }}
       >
         {[
-          { label: "Technologies", count: skills.length, icon: Zap },
-          { label: "Categories", count: Array.from(new Set(skills.map(s => s.category))).length, icon: Layers },
-          { label: "AI/ML Tools", count: skills.filter(s => s.category === "AI/ML").length, icon: Bot },
-          { label: "Years Experience", count: "3+", icon: Rocket }
-        ].map((stat, index) => {
-          const StatIcon = stat.icon
-          return (
-            <motion.div
-              key={stat.label}
-              className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
+          { label: "Technologies", count: skills.length, icon: "⚡" },
+          { label: "Categories", count: Array.from(new Set(skills.map(s => s.category))).length, icon: "📚" },
+          { label: "AI/ML Tools", count: skills.filter(s => s.category === "AI/ML").length, icon: "🤖" },
+          { label: "Years Experience", count: "3+", icon: "🚀" }
+        ].map((stat, index) => (
+          <motion.div
+            key={stat.label}
+            className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
+            whileHover={{ 
+              scale: 1.02,
+              transition: { duration: 0.2 }
+            }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <motion.div 
+              className="text-2xl mb-2"
               whileHover={{ 
-                scale: 1.02,
-                transition: { duration: 0.2 }
+                scale: 1.2, 
+                rotate: 360,
+                transition: { duration: 0.5 }
               }}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
             >
-              <div className="text-2xl mb-2 flex justify-center">
-                <StatIcon className="w-6 h-6 text-cyan-400" />
-              </div>
-              <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
-                {stat.count}
-              </div>
-              <div className="text-sm text-slate-400">{stat.label}</div>
+              {stat.icon}
             </motion.div>
-          )
-        })}
+            <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+              {stat.count}
+            </div>
+            <div className="text-sm text-slate-400">{stat.label}</div>
+          </motion.div>
+        ))}
       </motion.div>
     </div>
   )
