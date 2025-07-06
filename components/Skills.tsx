@@ -5,51 +5,51 @@ import { InfiniteMovingCards } from "./ui/infinite-moving-cards"
 
 const skills = [
   // Tech Stack
-  { name: "React.js", icon: "⚛️", category: "Frontend" },
-  { name: "Express.js", icon: "🚂", category: "Backend" },
-  { name: "Node.js", icon: "🟩", category: "Backend" },
-  { name: "Tailwind", icon: "💨", category: "Frontend" },
-  { name: "HTML5", icon: "🌐", category: "Frontend" },
-  { name: "CSS3", icon: "🎨", category: "Frontend" },
-  { name: "Flask", icon: "🧪", category: "Backend" },
+  { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" },
+  { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", category: "Backend" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
+  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg", category: "Frontend" },
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", category: "Frontend" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", category: "Frontend" },
+  { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg", category: "Backend" },
 
   // AI/ML Frameworks
-  { name: "Scikit-learn", icon: "📊", category: "AI/ML" },
-  { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
-  { name: "Keras", icon: "🔬", category: "AI/ML" },
-  { name: "NLTK", icon: "📚", category: "AI/ML" },
-  { name: "SpaCy", icon: "🧬", category: "AI/ML" },
-  { name: "Hugging Face", icon: "🤗", category: "AI/ML" },
-  { name: "T5", icon: "📝", category: "AI/ML" },
-  { name: "BERT", icon: "🧠", category: "AI/ML" },
-  { name: "SmolAgents", icon: "🎛️", category: "AI/ML" },
-  { name: "LangChain", icon: "🔗", category: "AI/ML" },
-  { name: "LangGraph", icon: "📈", category: "AI/ML" },
-  { name: "LlamaIndex", icon: "🦙", category: "AI/ML" },
+  { name: "Scikit-learn", icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg", category: "AI/ML" },
+  { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", category: "AI/ML" },
+  { name: "Keras", icon: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg", category: "AI/ML" },
+  { name: "NLTK", icon: "https://www.nltk.org/images/logo.gif", category: "AI/ML" },
+  { name: "SpaCy", icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg", category: "AI/ML" },
+  { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo.svg", category: "AI/ML" },
+  { name: "T5", icon: "https://avatars.githubusercontent.com/u/123218969?s=200&v=4", category: "AI/ML" },
+  { name: "BERT", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Google_BERT_logo.svg/640px-Google_BERT_logo.svg.png", category: "AI/ML" },
+  { name: "SmolAgents", icon: "https://smol-ai.nyc3.cdn.digitaloceanspaces.com/logo-small.png", category: "AI/ML" },
+  { name: "LangChain", icon: "https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/favicon.ico", category: "AI/ML" },
+  { name: "LangGraph", icon: "https://www.langgraph.dev/logo.svg", category: "AI/ML" },
+  { name: "LlamaIndex", icon: "https://avatars.githubusercontent.com/u/111250006?s=200&v=4", category: "AI/ML" },
 
   // Databases
-  { name: "MongoDB", icon: "🍃", category: "Database" },
-  { name: "MySQL", icon: "🐬", category: "Database" },
-  { name: "Firebase", icon: "🔥", category: "Database" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Database" },
+  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", category: "Database" },
+  { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", category: "Database" },
 
   // Tools & Cloud
-  { name: "Git", icon: "🔀", category: "Tools" },
-  { name: "GitHub", icon: "🐙", category: "Tools" },
-  { name: "AWS", icon: "☁️", category: "Cloud" },
-  { name: "Streamlit", icon: "📈", category: "Tools" },
-  { name: "Vercel", icon: "▲", category: "Cloud" },
-  { name: "Docker", icon: "🐳", category: "Tools" },
-  { name: "GCP", icon: "🌥️", category: "Cloud" },
-  { name: "Figma", icon: "🖌️", category: "Design" },
-  { name: "Canva", icon: "🎨", category: "Design" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", category: "Tools" },
+  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", category: "Tools" },
+  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg", category: "Cloud" },
+  { name: "Streamlit", icon: "https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png", category: "Tools" },
+  { name: "Vercel", icon: "https://assets.vercel.com/image/upload/front/favicon/vercel/favicon.ico", category: "Cloud" },
+  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "Tools" },
+  { name: "GCP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", category: "Cloud" },
+  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", category: "Design" },
+  { name: "Canva", icon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg", category: "Design" },
 
   // DS/AI Concepts
-  { name: "Machine Learning", icon: "🤖", category: "Concepts" },
-  { name: "Deep Learning", icon: "🧠", category: "Concepts" },
-  { name: "EDA", icon: "📊", category: "Concepts" },
-  { name: "NLP", icon: "🗣️", category: "Concepts" },
-  { name: "LLMs", icon: "🧠", category: "Concepts" },
-  { name: "Generative AI", icon: "✨", category: "Concepts" },
+  { name: "Machine Learning", icon: "https://cdn-icons-png.flaticon.com/512/4149/4149643.png", category: "Concepts" },
+  { name: "Deep Learning", icon: "https://cdn-icons-png.flaticon.com/512/6610/6610153.png", category: "Concepts" },
+  { name: "EDA", icon: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png", category: "Concepts" },
+  { name: "NLP", icon: "https://cdn-icons-png.flaticon.com/512/4081/4081723.png", category: "Concepts" },
+  { name: "LLMs", icon: "https://cdn-icons-png.flaticon.com/512/10736/10736390.png", category: "Concepts" },
+  { name: "Generative AI", icon: "https://cdn-icons-png.flaticon.com/512/10025/10025734.png", category: "Concepts" },
 ]
 
 const getCategoryColor = (category: string) => {
@@ -97,15 +97,12 @@ export function Skills() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: index * 0.02, duration: 0.3 }}
-        style={{ willChange: 'transform' }}
       >
-        {/* Gradient overlay on hover */}
         <motion.div
           className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
                      opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
         />
-        
-        {/* Floating particles */}
+
         <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
           {[...Array(2)].map((_, i) => (
             <motion.div
@@ -130,29 +127,17 @@ export function Skills() {
           ))}
         </div>
 
-        {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full">
-          <motion.div 
-            className="text-4xl mb-3"
-            whileHover={{ 
-              scale: 1.1,
-              transition: { duration: 0.2 }
-            }}
-          >
-            {skill.icon}
-          </motion.div>
-          
+          <img src={skill.icon} alt={skill.name} className="w-8 h-8 object-contain mb-3" />
           <h3 className={`text-lg font-semibold text-center leading-tight
                          bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}>
             {skill.name}
           </h3>
-          
           <span className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50">
             {skill.category}
           </span>
         </div>
 
-        {/* Hover glow effect */}
         <motion.div
           className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
                      opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
@@ -163,7 +148,6 @@ export function Skills() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
-      {/* Section Header */}
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: 20 }}
@@ -191,8 +175,6 @@ export function Skills() {
         >
           A comprehensive toolkit spanning full-stack development, AI/ML, cloud technologies, and modern design tools
         </motion.p>
-        
-        {/* Category Legend */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {Array.from(new Set(skills.map(skill => skill.category))).map((category, index) => (
             <motion.span
@@ -211,7 +193,6 @@ export function Skills() {
         </div>
       </motion.div>
 
-      {/* Skills Cards */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -225,50 +206,6 @@ export function Skills() {
           pauseOnHover={true}
           className="py-4"
         />
-      </motion.div>
-
-      {/* Stats Section */}
-      <motion.div
-        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        {[
-          { label: "Technologies", count: skills.length, icon: "⚡" },
-          { label: "Categories", count: Array.from(new Set(skills.map(s => s.category))).length, icon: "📚" },
-          { label: "AI/ML Tools", count: skills.filter(s => s.category === "AI/ML").length, icon: "🤖" },
-          { label: "Years Experience", count: "3+", icon: "🚀" }
-        ].map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
-            whileHover={{ 
-              scale: 1.02,
-              transition: { duration: 0.2 }
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <motion.div 
-              className="text-2xl mb-2"
-              whileHover={{ 
-                scale: 1.2, 
-                rotate: 360,
-                transition: { duration: 0.5 }
-              }}
-            >
-              {stat.icon}
-            </motion.div>
-            <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
-              {stat.count}
-            </div>
-            <div className="text-sm text-slate-400">{stat.label}</div>
-          </motion.div>
-        ))}
       </motion.div>
     </div>
   )
