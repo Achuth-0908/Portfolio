@@ -213,7 +213,7 @@ export function LampDemo() {
                   custom={i}
                   className={`text-6xl md:text-8xl font-bold inline-block relative
                              ${letter === " " ? "mx-4" : ""}
-                             bg-gradient-to-r from-teal-400 via-violet-500 to-purple-500 
+                             bg-gradient-to-r from-teal-500 via-violet-500 to-purple-500 
                              hover:from-teal-300 hover:via-violet-400 hover:to-purple-400
                              bg-clip-text text-transparent
                              transition-all duration-400
