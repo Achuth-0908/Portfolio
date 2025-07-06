@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { LampContainer } from "./ui/lamp";
 import { Bubbles } from "./ui/bubbles";
 
@@ -21,9 +21,17 @@ export function LampDemo() {
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
-  const profileControls = useAnimation();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Loading delay to prevent flash
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
+    if (!isLoaded) return;
+    
     let timeout;
     const currentTitle = titles[currentTitleIndex];
     
@@ -49,7 +57,7 @@ export function LampDemo() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayText, isTyping, currentTitleIndex]);
+  }, [displayText, isTyping, currentTitleIndex, isLoaded]);
 
   // Cursor blinking effect
   useEffect(() => {
@@ -59,47 +67,28 @@ export function LampDemo() {
     return () => clearInterval(cursorInterval);
   }, []);
 
-  // Profile image floating animation
-  useEffect(() => {
-    const floatAnimation = async () => {
-      while (true) {
-        await profileControls.start({
-          y: [-5, 5, -5],
-          transition: { duration: 3, ease: "easeInOut" }
-        });
-      }
-    };
-    floatAnimation();
-  }, [profileControls]);
-
   const letterAnimation = {
     initial: { 
-      y: 100, 
+      y: 50, 
       opacity: 0,
-      rotateX: -90,
-      scale: 0.5
+      scale: 0.8
     },
     animate: (i) => ({
       y: 0,
       opacity: 1,
-      rotateX: 0,
       scale: 1,
       transition: {
-        duration: 1.2,
-        delay: i * 0.15,
-        ease: [0.16, 1, 0.3, 1],
-        type: "spring",
-        stiffness: 100,
-        damping: 10
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "easeOut"
       },
     }),
     hover: {
-      scale: 1.2,
-      rotateY: 360,
+      scale: 1.1,
       color: "#60a5fa",
       transition: {
-        duration: 0.6,
-        ease: "easeInOut"
+        duration: 0.3,
+        ease: "easeOut"
       }
     }
   };
@@ -116,13 +105,13 @@ export function LampDemo() {
   };
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
@@ -130,55 +119,35 @@ export function LampDemo() {
   const profileImageVariants = {
     initial: { 
       opacity: 0, 
-      scale: 0,
-      rotate: -180
+      scale: 0.8
     },
     animate: { 
       opacity: 1, 
       scale: 1,
-      rotate: 0,
       transition: {
-        duration: 1.5,
-        delay: 1.5,
-        ease: [0.16, 1, 0.3, 1],
-        type: "spring",
-        stiffness: 100
+        duration: 0.8,
+        delay: 1,
+        ease: "easeOut"
       }
     },
     hover: {
-      scale: 1.1,
-      rotate: 5,
-      boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+      scale: 1.05,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: "easeOut"
       }
     }
   };
 
-  const typewriterVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: 2
-      }
-    }
-  };
-
-  const glowEffect = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: [0, 1, 0],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -194,14 +163,6 @@ export function LampDemo() {
             animate="visible"
             className="flex flex-col items-center justify-center space-y-8"
           >
-            {/* Glowing background effect for name */}
-            <motion.div
-              variants={glowEffect}
-              initial="initial"
-              animate="animate"
-              className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-green-500/20 blur-3xl"
-            />
-            
             <div className="flex items-center justify-center overflow-hidden relative">
               {nameLetters.map((letter, i) => (
                 <motion.span
@@ -216,23 +177,11 @@ export function LampDemo() {
                              bg-gradient-to-r from-blue-800 via-purple-600 to-green-500 
                              hover:from-blue-400 hover:via-purple-400 hover:to-green-400
                              bg-clip-text text-transparent
-                             transition-all duration-500
-                             cursor-pointer
-                             drop-shadow-2xl
-                             `}
-                  style={{
-                    textShadow: "0 0 30px rgba(59, 130, 246, 0.5)"
-                  }}
+                             transition-all duration-300
+                             cursor-pointer`}
+                  style={{ willChange: 'transform' }}
                 >
                   {letter}
-                  {/* Individual letter glow effect */}
-                  <motion.span
-                    className="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent opacity-0"
-                    whileHover={{ opacity: 0.8 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {letter}
-                  </motion.span>
                 </motion.span>
               ))}
             </div>
@@ -246,7 +195,7 @@ export function LampDemo() {
           animate="visible"
         >
           <div className="flex flex-col items-center justify-center space-y-8">
-            {/* Profile Image with enhanced animations */}
+            {/* Profile Image */}
             <motion.div
               variants={profileImageVariants}
               initial="initial"
@@ -255,110 +204,38 @@ export function LampDemo() {
               className="relative"
             >
               <motion.div
-                animate={profileControls}
                 className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-2xl relative"
-                style={{
-                  boxShadow: "0 0 50px rgba(59, 130, 246, 0.4)"
+                animate={{
+                  y: [0, -5, 0],
+                  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
                 }}
               >
                 <img
                   src="/achuth's personal.jpg"
                   alt="Profile"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                 />
-                
-                {/* Rotating border effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 opacity-0"
-                  whileHover={{ 
-                    opacity: 1,
-                    rotate: 360,
-                    transition: { duration: 2, repeat: Infinity, ease: "linear" }
-                  }}
-                  style={{ padding: "2px" }}
-                />
-              </motion.div>
-              
-              {/* Floating particles around profile */}
-              <motion.div
-                className="absolute -inset-4 pointer-events-none"
-                animate={{
-                  rotate: 360,
-                  transition: { duration: 20, repeat: Infinity, ease: "linear" }
-                }}
-              >
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                    style={{
-                      top: `${20 + Math.sin(i * Math.PI / 3) * 60}%`,
-                      left: `${20 + Math.cos(i * Math.PI / 3) * 60}%`,
-                    }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.5, 1, 0.5],
-                      transition: {
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.3
-                      }
-                    }}
-                  />
-                ))}
               </motion.div>
             </motion.div>
 
-            {/* "This is me" text with wave effect */}
+            {/* "This is me" text */}
             <motion.p
               variants={itemVariants}
-              className="text-lg text-slate-300 font-light relative overflow-hidden"
+              className="text-lg text-slate-300 font-light"
             >
-              <motion.span
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="bg-gradient-to-r from-slate-300 via-blue-400 to-slate-300 bg-clip-text text-transparent"
-                style={{ backgroundSize: "200% 100%" }}
-              >
-                This is me
-              </motion.span>
+              This is me
             </motion.p>
 
-            {/* Enhanced typewriter effect */}
+            {/* Typewriter effect */}
             <motion.div 
-              variants={typewriterVariants}
-              initial="initial"
-              animate="animate"
+              variants={itemVariants}
               className="text-center space-y-4"
             >
               <div className="h-20 flex items-center justify-center">
-                <motion.p 
-                  className="text-xl md:text-2xl text-slate-300 font-light relative"
-                  key={currentTitleIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <motion.span
-                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent"
-                    animate={{
-                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    style={{ backgroundSize: "200% 100%" }}
-                  >
+                <p className="text-xl md:text-2xl text-slate-300 font-light">
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
                     {displayText}
-                  </motion.span>
+                  </span>
                   <motion.span
                     className="text-blue-400 ml-1"
                     animate={{ opacity: showCursor ? 1 : 0 }}
@@ -366,62 +243,20 @@ export function LampDemo() {
                   >
                     |
                   </motion.span>
-                </motion.p>
+                </p>
               </div>
               
-              {/* Tagline with particle effect */}
-              <motion.div
+              {/* Tagline */}
+              <motion.p 
+                className="text-base md:text-lg text-slate-400 mt-6 font-light italic"
                 variants={itemVariants}
-                className="relative"
               >
-                <motion.p 
-                  className="text-base md:text-lg text-slate-400 mt-6 font-light italic relative z-10"
-                  animate={{
-                    textShadow: [
-                      "0 0 10px rgba(59, 130, 246, 0.3)",
-                      "0 0 20px rgba(59, 130, 246, 0.5)",
-                      "0 0 10px rgba(59, 130, 246, 0.3)"
-                    ]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  Transforming ideas into reality through code.
-                </motion.p>
-                
-                {/* Background particles */}
-                <motion.div className="absolute inset-0 pointer-events-none">
-                  {[...Array(8)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30"
-                      style={{
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                      }}
-                      animate={{
-                        y: [-10, 10, -10],
-                        x: [-5, 5, -5],
-                        opacity: [0.3, 0.8, 0.3],
-                        scale: [1, 1.5, 1],
-                      }}
-                      transition={{
-                        duration: 3 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  ))}
-                </motion.div>
-              </motion.div>
+                Transforming ideas into reality through code.
+              </motion.p>
             </motion.div>
           </div>
         </motion.div>
       </div>
     </div>
-  );
+  )
 }
