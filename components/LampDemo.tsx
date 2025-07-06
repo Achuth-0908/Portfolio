@@ -163,6 +163,19 @@ export function LampDemo() {
             animate="visible"
             className="flex flex-col items-center justify-center space-y-8"
           >
+            {/* Glowing background effect for name */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-green-500/10 blur-3xl"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            
             <div className="flex items-center justify-center overflow-hidden relative">
               {nameLetters.map((letter, i) => (
                 <motion.span
@@ -215,6 +228,35 @@ export function LampDemo() {
                   alt="Profile"
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                 />
+              </motion.div>
+              
+              {/* Floating particles around profile */}
+              <motion.div
+                className="absolute -inset-4 pointer-events-none"
+                animate={{
+                  rotate: 360,
+                  transition: { duration: 20, repeat: Infinity, ease: "linear" }
+                }}
+              >
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                    style={{
+                      top: `${20 + Math.sin(i * Math.PI / 3) * 60}%`,
+                      left: `${20 + Math.cos(i * Math.PI / 3) * 60}%`,
+                    }}
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.5, 1, 0.5],
+                      transition: {
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.3
+                      }
+                    }}
+                  />
+                ))}
               </motion.div>
             </motion.div>
 
