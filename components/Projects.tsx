@@ -93,28 +93,28 @@ const projects = [
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 50,
-    scale: 0.95
+    y: 30,
+    scale: 0.98
   },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: i * 0.15,
-      duration: 0.8,
+      delay: i * 0.1,
+      duration: 0.5,
       ease: [0.16, 1, 0.3, 1],
     },
   }),
 }
 
 const featureVariants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: -15 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.4,
       ease: "easeOut"
     }
   },
@@ -162,10 +162,10 @@ export function Projects() {
       {/* Section Header */}
       <motion.div
         className="text-center mb-12"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <motion.p
           className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto"
@@ -173,16 +173,9 @@ export function Projects() {
             backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
           }}
           transition={{
-            duration: 4,
+            duration: 3,
             repeat: Infinity,
             ease: "easeInOut"
-          }}
-          style={{
-            backgroundSize: "200% 100%",
-            background: "linear-gradient(90deg, #94a3b8, #60a5fa, #94a3b8)",
-            backgroundClip: "text",
-            WebkitBackgroundClip: "text",
-            color: "transparent"
           }}
         >
           A showcase of innovative projects spanning AI/ML, blockchain, mobile development, and IoT solutions
@@ -195,44 +188,45 @@ export function Projects() {
           <motion.div
             key={index}
             className={`p-6 bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(project.category)} 
-                       rounded-2xl shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 
+                       rounded-2xl shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 
                        relative overflow-hidden group cursor-pointer h-full flex flex-col`}
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={index}
-            whileHover={{
-              scale: 1.02,
-              boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.15)",
+            whileHover={{ 
+              scale: 1.01,
+              boxShadow: "0 20px 40px -12px rgba(6, 182, 212, 0.15)",
               borderColor: "rgba(6, 182, 212, 0.4)"
             }}
+            style={{ willChange: 'transform' }}
           >
             {/* Gradient overlay on hover */}
             <motion.div
               className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(project.category)} 
-                         opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
+                         opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
             />
-
-            {/* Floating particles */}
+            
+            {/* Reduced floating particles */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-              {[...Array(3)].map((_, i) => (
+              {[...Array(2)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full opacity-20`}
+                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full opacity-15`}
                   style={{
-                    top: `${20 + i * 25}%`,
-                    right: `${10 + i * 20}%`,
+                    top: `${30 + i * 35}%`,
+                    right: `${15 + i * 25}%`,
                   }}
                   animate={{
-                    y: [-8, 8, -8],
-                    opacity: [0.2, 0.6, 0.2],
-                    scale: [1, 1.3, 1],
+                    y: [-5, 5, -5],
+                    opacity: [0.15, 0.4, 0.15],
+                    scale: [1, 1.2, 1],
                   }}
                   transition={{
-                    duration: 2.5 + i * 0.5,
+                    duration: 2 + i * 0.5,
                     repeat: Infinity,
-                    delay: i * 0.4,
+                    delay: i * 0.3,
                     ease: "easeInOut"
                   }}
                 />
@@ -245,7 +239,7 @@ export function Projects() {
                 <div className="flex items-center gap-3 mb-3">
                   <motion.div
                     whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.4 }}
                     className="text-2xl"
                   >
                     {getCategoryIcon(project.category)}
@@ -254,27 +248,27 @@ export function Projects() {
                     {project.title}
                   </h3>
                 </div>
-
+                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-                  <motion.div
+                  <motion.div 
                     className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
+                    whileHover={{ x: 3 }}
                     transition={{ duration: 0.2 }}
                   >
                     <Layers className="w-4 h-4 text-cyan-400" />
                     <span className="text-sm font-medium">{project.category}</span>
                   </motion.div>
-                  <motion.div
+                  <motion.div 
                     className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
+                    whileHover={{ x: 3 }}
                     transition={{ duration: 0.2 }}
                   >
                     <Calendar className="w-4 h-4 text-purple-400" />
                     <span className="text-sm">{project.year}</span>
                   </motion.div>
-                  <motion.div
+                  <motion.div 
                     className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 5 }}
+                    whileHover={{ x: 3 }}
                     transition={{ duration: 0.2 }}
                   >
                     <Star className="w-4 h-4 text-yellow-400" />
@@ -282,7 +276,7 @@ export function Projects() {
                   </motion.div>
                 </div>
               </div>
-
+              
               <motion.div
                 className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700/50 group-hover:border-cyan-500/50 transition-colors duration-300"
                 whileHover={{ scale: 1.1, rotate: 45 }}
@@ -293,12 +287,12 @@ export function Projects() {
             </div>
 
             {/* Description */}
-            <motion.div
+            <motion.div 
               className="mb-4 relative z-10 flex-grow"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1 }}
             >
               <p className="text-sm text-slate-300 leading-relaxed mb-4">
                 {project.description}
@@ -307,19 +301,19 @@ export function Projects() {
 
             {/* Features Section */}
             <div className="relative z-10 mb-4">
-              <motion.h4
+              <motion.h4 
                 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 3 }}
                 transition={{ duration: 0.2 }}
               >
-                <motion.span
+                <motion.span 
                   className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full`}
                   animate={{
-                    scale: [1, 1.2, 1],
+                    scale: [1, 1.1, 1],
                     opacity: [0.7, 1, 0.7]
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 1.5,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
@@ -335,12 +329,12 @@ export function Projects() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ delay: featureIndex * 0.1 }}
-                    whileHover={{ x: 5 }}
+                    transition={{ delay: featureIndex * 0.05 }}
+                    whileHover={{ x: 3 }}
                   >
-                    <motion.div
+                    <motion.div 
                       className={`w-1.5 h-1.5 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full mt-2 flex-shrink-0`}
-                      whileHover={{ scale: 1.5 }}
+                      whileHover={{ scale: 1.3 }}
                       transition={{ duration: 0.2 }}
                     />
                     <span className="text-xs leading-relaxed group-hover/feature:text-white transition-colors duration-200">
@@ -353,9 +347,9 @@ export function Projects() {
 
             {/* Tech Stack Section */}
             <div className="relative z-10 mt-auto">
-              <motion.h4
+              <motion.h4 
                 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 3 }}
                 transition={{ duration: 0.2 }}
               >
                 <Code className="w-3 h-3 text-cyan-400" />
@@ -368,11 +362,11 @@ export function Projects() {
                     className={`px-2 py-1 text-xs font-medium rounded-full 
                                bg-slate-800/60 backdrop-blur-sm border ${getCategoryBorder(project.category)}
                                text-slate-300 hover:text-white transition-colors duration-200`}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: techIndex * 0.05 }}
-                    whileHover={{
+                    transition={{ delay: techIndex * 0.03 }}
+                    whileHover={{ 
                       scale: 1.05,
                       backgroundColor: "rgba(6, 182, 212, 0.1)"
                     }}
@@ -395,10 +389,10 @@ export function Projects() {
       {/* Stats Section */}
       <motion.div
         className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 px-4"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
         {[
           { label: "Projects", count: projects.length, icon: "🚀" },
@@ -409,19 +403,19 @@ export function Projects() {
           <motion.div
             key={stat.label}
             className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
-            whileHover={{
-              scale: 1.05,
+            whileHover={{ 
+              scale: 1.03,
               boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
             }}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: index * 0.05 }}
           >
-            <motion.div
+            <motion.div 
               className="text-2xl mb-2"
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              transition={{ duration: 0.5 }}
+              whileHover={{ scale: 1.1, rotate: 360 }}
+              transition={{ duration: 0.4 }}
             >
               {stat.icon}
             </motion.div>
