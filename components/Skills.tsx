@@ -23,7 +23,7 @@ const skills = [
   { name: "SmolAgents", icon: "https://smol.ai/favicon.svg", category: "AI/ML" },
 
   { name: "LangChain", icon: "https://cdn-icons-png.flaticon.com/512/1350/1350641.png", category: "AI/ML" },
-  { name: "LangGraph", icon: "https://www.langgraph.dev/favicon.ico", category: "AI/ML" },
+  { name: "LangGraph", icon: "https://github.com/langchain-ai/langgraph/raw/main/docs/static/img/logo.png", category: "AI/ML" },
   { name: "SpaCy", icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg", category: "AI/ML" },
   { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo.svg", category: "AI/ML" },
   { name: "T5", icon: "https://avatars.githubusercontent.com/u/123218969?s=200&v=4", category: "AI/ML" },
