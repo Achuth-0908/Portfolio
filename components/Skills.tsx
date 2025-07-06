@@ -2,54 +2,94 @@
 
 import { motion } from "framer-motion"
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards"
+import { 
+  Database, 
+  Cloud, 
+  Code, 
+  Palette, 
+  Brain, 
+  Server,
+  Globe,
+  GitBranch,
+  Container,
+  Figma,
+  Github
+} from "lucide-react"
+import { 
+  SiReact, 
+  SiExpress, 
+  SiNodedotjs, 
+  SiTailwindcss, 
+  SiHtml5, 
+  SiCss3, 
+  SiFlask,
+  SiScikitlearn,
+  SiTensorflow,
+  SiKeras,
+  SiMongodb,
+  SiMysql,
+  SiFirebase,
+  SiGit,
+  SiGithub,
+  SiAmazonaws,
+  SiStreamlit,
+  SiVercel,
+  SiDocker,
+  SiGooglecloud,
+  SiFigma,
+  SiCanva,
+  SiPython,
+  SiJavascript,
+  SiTypescript
+} from "react-icons/si"
 
 const skills = [
   // Tech Stack
-  { name: "React.js", icon: "⚛️", category: "Frontend" },
-  { name: "Express.js", icon: "🚂", category: "Backend" },
-  { name: "Node.js", icon: "🟩", category: "Backend" },
-  { name: "Tailwind", icon: "💨", category: "Frontend" },
-  { name: "HTML5", icon: "🌐", category: "Frontend" },
-  { name: "CSS3", icon: "🎨", category: "Frontend" },
-  { name: "Flask", icon: "🧪", category: "Backend" },
+  { name: "React.js", icon: SiReact, category: "Frontend", color: "#61DAFB" },
+  { name: "Express.js", icon: SiExpress, category: "Backend", color: "#000000" },
+  { name: "Node.js", icon: SiNodedotjs, category: "Backend", color: "#339933" },
+  { name: "Tailwind", icon: SiTailwindcss, category: "Frontend", color: "#06B6D4" },
+  { name: "HTML5", icon: SiHtml5, category: "Frontend", color: "#E34F26" },
+  { name: "CSS3", icon: SiCss3, category: "Frontend", color: "#1572B6" },
+  { name: "Flask", icon: SiFlask, category: "Backend", color: "#000000" },
 
   // AI/ML Frameworks
-  { name: "Scikit-learn", icon: "📊", category: "AI/ML" },
-  { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
-  { name: "Keras", icon: "🔬", category: "AI/ML" },
-  { name: "NLTK", icon: "📚", category: "AI/ML" },
-  { name: "SpaCy", icon: "🧬", category: "AI/ML" },
-  { name: "Hugging Face", icon: "🤗", category: "AI/ML" },
-  { name: "T5", icon: "📝", category: "AI/ML" },
-  { name: "BERT", icon: "🧠", category: "AI/ML" },
-  { name: "SmolAgents", icon: "🎛️", category: "AI/ML" },
-  { name: "LangChain", icon: "🔗", category: "AI/ML" },
-  { name: "LangGraph", icon: "📈", category: "AI/ML" },
-  { name: "LlamaIndex", icon: "🦙", category: "AI/ML" },
+  { name: "Scikit-learn", icon: SiScikitlearn, category: "AI/ML", color: "#F7931E" },
+  { name: "TensorFlow", icon: SiTensorflow, category: "AI/ML", color: "#FF6F00" },
+  { name: "Keras", icon: SiKeras, category: "AI/ML", color: "#D00000" },
+  { name: "NLTK", icon: Brain, category: "AI/ML", color: "#3776AB" },
+  { name: "SpaCy", icon: Brain, category: "AI/ML", color: "#09A3D5" },
+  { name: "Hugging Face", icon: Brain, category: "AI/ML", color: "#FFD21E" },
+  { name: "T5", icon: Brain, category: "AI/ML", color: "#4285F4" },
+  { name: "BERT", icon: Brain, category: "AI/ML", color: "#4285F4" },
+  { name: "SmolAgents", icon: Brain, category: "AI/ML", color: "#FF6B6B" },
+  { name: "LangChain", icon: Brain, category: "AI/ML", color: "#1C3A3A" },
+  { name: "LangGraph", icon: Brain, category: "AI/ML", color: "#2E8B57" },
+  { name: "LlamaIndex", icon: Brain, category: "AI/ML", color: "#8B4513" },
 
   // Databases
-  { name: "MongoDB", icon: "🍃", category: "Database" },
-  { name: "MySQL", icon: "🐬", category: "Database" },
-  { name: "Firebase", icon: "🔥", category: "Database" },
+  { name: "MongoDB", icon: SiMongodb, category: "Database", color: "#47A248" },
+  { name: "MySQL", icon: SiMysql, category: "Database", color: "#4479A1" },
+  { name: "Firebase", icon: SiFirebase, category: "Database", color: "#FFCA28" },
 
   // Tools & Cloud
-  { name: "Git", icon: "🔀", category: "Tools" },
-  { name: "GitHub", icon: "🐙", category: "Tools" },
-  { name: "AWS", icon: "☁️", category: "Cloud" },
-  { name: "Streamlit", icon: "📈", category: "Tools" },
-  { name: "Vercel", icon: "▲", category: "Cloud" },
-  { name: "Docker", icon: "🐳", category: "Tools" },
-  { name: "GCP", icon: "🌥️", category: "Cloud" },
-  { name: "Figma", icon: "🖌️", category: "Design" },
-  { name: "Canva", icon: "🎨", category: "Design" },
+  { name: "Git", icon: SiGit, category: "Tools", color: "#F05032" },
+  { name: "GitHub", icon: SiGithub, category: "Tools", color: "#181717" },
+  { name: "AWS", icon: SiAmazonaws, category: "Cloud", color: "#FF9900" },
+  { name: "Streamlit", icon: SiStreamlit, category: "Tools", color: "#FF4B4B" },
+  { name: "Vercel", icon: SiVercel, category: "Cloud", color: "#000000" },
+  { name: "Docker", icon: SiDocker, category: "Tools", color: "#2496ED" },
+  { name: "GCP", icon: SiGooglecloud, category: "Cloud", color: "#4285F4" },
+  { name: "Figma", icon: SiFigma, category: "Design", color: "#F24E1E" },
+  { name: "Canva", icon: SiCanva, category: "Design", color: "#00C4CC" },
 
   // DS/AI Concepts
-  { name: "Machine Learning", icon: "🤖", category: "Concepts" },
-  { name: "Deep Learning", icon: "🧠", category: "Concepts" },
-  { name: "EDA", icon: "📊", category: "Concepts" },
-  { name: "NLP", icon: "🗣️", category: "Concepts" },
-  { name: "LLMs", icon: "🧠", category: "Concepts" },
-  { name: "Generative AI", icon: "✨", category: "Concepts" },
+  { name: "Machine Learning", icon: Brain, category: "Concepts", color: "#FF6B6B" },
+  { name: "Deep Learning", icon: Brain, category: "Concepts", color: "#4ECDC4" },
+  { name: "EDA", icon: Brain, category: "Concepts", color: "#45B7D1" },
+  { name: "NLP", icon: Brain, category: "Concepts", color: "#96CEB4" },
+  { name: "LLMs", icon: Brain, category: "Concepts", color: "#FFEAA7" },
+  { name: "Generative AI", icon: Brain, category: "Concepts", color: "#DDA0DD" },
 ]
 
 const getCategoryColor = (category: string) => {
@@ -81,99 +121,112 @@ const getCategoryBorder = (category: string) => {
 }
 
 export function Skills() {
-  const skillItems = skills.map((skill, index) => ({
-    content: (
-      <motion.div
-        className={`w-full h-full flex flex-col items-center justify-center 
-                   bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(skill.category)} 
-                   rounded-2xl p-6 shadow-2xl hover:shadow-cyan-500/10 
-                   transition-all duration-500 relative overflow-hidden group
-                   min-w-[180px] min-h-[140px]`}
-        whileHover={{ 
-          scale: 1.05,
-          boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.15)",
-          borderColor: "rgba(6, 182, 212, 0.4)"
-        }}
-        whileTap={{ scale: 0.98 }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.5, 
-          delay: index * 0.05,
-          ease: [0.16, 1, 0.3, 1]
-        }}
-      >
-        {/* Gradient overlay on hover */}
+  const skillItems = skills.map((skill, index) => {
+    const IconComponent = skill.icon
+    
+    return {
+      content: (
         <motion.div
-          className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                     opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-        />
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-          {[...Array(2)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(skill.category)} rounded-full opacity-20`}
-              style={{
-                top: `${20 + i * 40}%`,
-                right: `${10 + i * 30}%`,
-              }}
-              animate={{
-                y: [-5, 5, -5],
-                opacity: [0.2, 0.6, 0.2],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2 + i,
-                repeat: Infinity,
-                delay: i * 0.3,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </div>
+          className={`w-full h-full flex flex-col items-center justify-center 
+                     bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(skill.category)} 
+                     rounded-2xl p-6 shadow-2xl hover:shadow-cyan-500/10 
+                     transition-all duration-500 relative overflow-hidden group
+                     min-w-[180px] min-h-[140px]`}
+          whileHover={{ 
+            scale: 1.05,
+            boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.15)",
+            borderColor: "rgba(6, 182, 212, 0.4)"
+          }}
+          whileTap={{ scale: 0.98 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            duration: 0.5, 
+            delay: index * 0.05,
+            ease: [0.16, 1, 0.3, 1]
+          }}
+        >
+          {/* Gradient overlay on hover */}
+          <motion.div
+            className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                       opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
+          />
+          
+          {/* Floating particles */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+            {[...Array(2)].map((_, i) => (
+              <motion.div
+                key={i}
+                className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(skill.category)} rounded-full opacity-20`}
+                style={{
+                  top: `${20 + i * 40}%`,
+                  right: `${10 + i * 30}%`,
+                }}
+                animate={{
+                  y: [-5, 5, -5],
+                  opacity: [0.2, 0.6, 0.2],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 2 + i,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full">
-          <motion.div 
-            className="text-4xl mb-3 filter drop-shadow-lg"
-            whileHover={{ 
-              scale: 1.2, 
-              rotate: [0, -10, 10, 0],
-              transition: { duration: 0.5 }
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full">
+            <motion.div 
+              className="mb-3 filter drop-shadow-lg"
+              whileHover={{ 
+                scale: 1.2, 
+                rotate: [0, -10, 10, 0],
+                transition: { duration: 0.5 }
+              }}
+              style={{ color: skill.color }}
+            >
+              <IconComponent size={48} className="transition-colors duration-300 group-hover:drop-shadow-lg" />
+            </motion.div>
+            
+            <motion.h3 
+              className={`text-lg font-semibold text-center leading-tight
+                         bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              {skill.name}
+            </motion.h3>
+            
+            <motion.span 
+              className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              {skill.category}
+            </motion.span>
+          </div>
+
+          {/* Hover glow effect */}
+          <motion.div
+            className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                       opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}
+          />
+
+          {/* Icon-specific glow effect */}
+          <motion.div
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"
+            style={{ 
+              background: `radial-gradient(circle at center, ${skill.color}20 0%, transparent 70%)` 
             }}
-          >
-            {skill.icon}
-          </motion.div>
-          
-          <motion.h3 
-            className={`text-lg font-semibold text-center leading-tight
-                       bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(skill.category)}`}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            {skill.name}
-          </motion.h3>
-          
-          <motion.span 
-            className="text-xs text-slate-400 mt-1 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            {skill.category}
-          </motion.span>
-        </div>
-
-        {/* Hover glow effect */}
-        <motion.div
-          className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                     opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}
-        />
-      </motion.div>
-    ),
-  }))
+          />
+        </motion.div>
+      ),
+    }
+  })
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
@@ -266,7 +319,13 @@ export function Skills() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            <div className="text-2xl mb-2">{stat.icon}</div>
+            <motion.div 
+              className="text-2xl mb-2"
+              whileHover={{ scale: 1.2, rotate: 360 }}
+              transition={{ duration: 0.5 }}
+            >
+              {stat.icon}
+            </motion.div>
             <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {stat.count}
             </div>
