@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { LampDemo } from "./LampDemo"
 import { Skills } from "./Skills"
 import { Experience } from "./Experience"
@@ -15,17 +15,17 @@ import { ChevronUp, Menu, X } from "lucide-react"
 const sectionVariants = {
   hidden: { 
     opacity: 0, 
-    y: 100,
-    scale: 0.95
+    y: 50,
+    scale: 0.98
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: { 
-      duration: 1.2, 
+      duration: 0.8, 
       ease: [0.16, 1, 0.3, 1],
-      staggerChildren: 0.1
+      staggerChildren: 0.05
     },
   },
 }
@@ -46,128 +46,146 @@ export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const { scrollY } = useScroll()
   
-  // Parallax effects
-  const headerOpacity = useTransform(scrollY, [0, 100], [0.8, 0.95])
-  const headerBlur = useTransform(scrollY, [0, 100], [8, 20])
+  // Optimized parallax effects with reduced complexity
+  const headerOpacity = useTransform(scrollY, [0, 100], [0.85, 0.95])
+  const headerBlur = useTransform(scrollY, [0, 100], [10, 16])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => item.href.substring(1))
-      const scrollPosition = window.scrollY + 200
+  // Memoized scroll handler to prevent unnecessary re-renders
+  const handleScroll = useCallback(() => {
+    const sections = navItems.map(item => item.href.substring(1))
+    const scrollPosition = window.scrollY + 200
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
+    for (const section of sections) {
+      const element = document.getElementById(section)
+      if (element) {
+        const { offsetTop, offsetHeight } = element
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          setActiveSection(section)
+          break
         }
       }
-
-      setShowScrollTop(window.scrollY > 500)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    setShowScrollTop(window.scrollY > 500)
   }, [])
 
-  const scrollToSection = (href: string) => {
+  // Throttled scroll event listener
+  useEffect(() => {
+    let ticking = false
+    
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', throttledHandleScroll)
+  }, [handleScroll])
+
+  const scrollToSection = useCallback((href: string) => {
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" })
     }
     setIsMenuOpen(false)
-  }
+  }, [])
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+  }, [])
 
+  // Simplified animation variants
   const headerVariants = {
-    hidden: { y: -100, opacity: 0 },
+    hidden: { y: -50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1],
-        staggerChildren: 0.1
+        staggerChildren: 0.05
       }
     }
   }
 
   const navItemVariants = {
-    hidden: { y: -20, opacity: 0 },
+    hidden: { y: -10, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: 0.4, ease: "easeOut" }
     },
     hover: {
-      scale: 1.1,
-      y: -2,
-      transition: { duration: 0.2, ease: "easeOut" }
+      scale: 1.05,
+      y: -1,
+      transition: { duration: 0.15, ease: "easeOut" }
     }
   }
 
   const logoVariants = {
-    hidden: { x: -50, opacity: 0 },
+    hidden: { x: -30, opacity: 0 },
     visible: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
     },
     hover: {
-      scale: 1.05,
-      transition: { duration: 0.3, ease: "easeOut" }
+      scale: 1.03,
+      transition: { duration: 0.2, ease: "easeOut" }
     }
   }
 
   const sectionTitleVariants = {
     hidden: { 
       opacity: 0, 
-      y: 50,
-      scale: 0.8
+      y: 30,
+      scale: 0.95
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1]
       }
     }
   }
 
-  const floatingElements = Array.from({ length: 6 }, (_, i) => (
-    <motion.div
-      key={i}
-      className="absolute w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-20"
-      style={{
-        top: `${20 + (i * 15)}%`,
-        left: `${10 + (i * 12)}%`,
-      }}
-      animate={{
-        y: [-20, 20, -20],
-        x: [-10, 10, -10],
-        opacity: [0.2, 0.6, 0.2],
-        scale: [1, 1.5, 1],
-      }}
-      transition={{
-        duration: 4 + i,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay: i * 0.5
-      }}
-    />
-  ))
+  // Reduced floating elements for better performance
+  const floatingElements = useMemo(() => 
+    Array.from({ length: 4 }, (_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-15"
+        style={{
+          top: `${25 + (i * 20)}%`,
+          left: `${15 + (i * 15)}%`,
+        }}
+        animate={{
+          y: [-15, 15, -15],
+          x: [-8, 8, -8],
+          opacity: [0.15, 0.4, 0.15],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 5 + i,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: i * 0.8
+        }}
+      />
+    )), []
+  )
 
   return (
     <div className="bg-slate-950 relative overflow-x-hidden">
-      {/* Floating background elements */}
+      {/* Reduced floating background elements */}
       <div className="fixed inset-0 pointer-events-none">
         {floatingElements}
       </div>
@@ -178,7 +196,7 @@ export default function App() {
         </div>
 
         <div className="relative z-10">
-          {/* Enhanced Header */}
+          {/* Optimized Header */}
           <motion.header
             className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6"
             style={{
@@ -192,10 +210,10 @@ export default function App() {
               className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl"
               style={{ opacity: headerOpacity }}
               whileHover={{ 
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
-                borderColor: "rgba(148, 163, 184, 0.3)"
+                boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.4)",
+                borderColor: "rgba(148, 163, 184, 0.25)"
               }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
             >
               <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
                 <motion.h1
@@ -211,7 +229,7 @@ export default function App() {
                   }}
                   transition={{
                     backgroundPosition: {
-                      duration: 3,
+                      duration: 4,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }
@@ -231,9 +249,9 @@ export default function App() {
                     >
                       <button
                         onClick={() => scrollToSection(item.href)}
-                        className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group ${
+                        className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 group ${
                           activeSection === item.href.substring(1)
-                            ? "text-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/20"
+                            ? "text-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/15"
                             : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                         }`}
                       >
@@ -245,16 +263,16 @@ export default function App() {
                         {/* Active indicator */}
                         {activeSection === item.href.substring(1) && (
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-xl"
+                            className="absolute inset-0 bg-gradient-to-r from-cyan-400/15 to-purple-500/15 rounded-xl"
                             layoutId="activeTab"
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
                           />
                         )}
                         
                         {/* Hover effect */}
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100"
-                          transition={{ duration: 0.2 }}
+                          className="absolute inset-0 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 rounded-xl opacity-0 group-hover:opacity-100"
+                          transition={{ duration: 0.15 }}
                         />
                       </button>
                     </motion.li>
@@ -263,7 +281,7 @@ export default function App() {
 
                 {/* Mobile Menu Button */}
                 <motion.button
-                  className="md:hidden p-2 rounded-xl bg-slate-800/50 text-white hover:bg-slate-700/50 transition-colors"
+                  className="md:hidden p-2 rounded-xl bg-slate-800/50 text-white hover:bg-slate-700/50 transition-colors duration-200"
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -271,20 +289,20 @@ export default function App() {
                     {isMenuOpen ? (
                       <motion.div
                         key="close"
-                        initial={{ rotate: -90, opacity: 0 }}
+                        initial={{ rotate: -45, opacity: 0 }}
                         animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: 90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        exit={{ rotate: 45, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
                       >
                         <X size={20} />
                       </motion.div>
                     ) : (
                       <motion.div
                         key="menu"
-                        initial={{ rotate: 90, opacity: 0 }}
+                        initial={{ rotate: 45, opacity: 0 }}
                         animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: -90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        exit={{ rotate: -45, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
                       >
                         <Menu size={20} />
                       </motion.div>
@@ -299,24 +317,24 @@ export default function App() {
               {isMenuOpen && (
                 <motion.div
                   className="md:hidden mt-4 mx-4"
-                  initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                  initial={{ opacity: 0, y: -15, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-2xl">
                     {navItems.map((item, index) => (
                       <motion.button
                         key={item.name}
                         onClick={() => scrollToSection(item.href)}
-                        className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-3 ${
+                        className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-3 ${
                           activeSection === item.href.substring(1)
                             ? "text-cyan-400 bg-cyan-400/10"
                             : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                         }`}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -15 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                        transition={{ delay: index * 0.05 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <span className="text-lg">{item.icon}</span>
@@ -357,14 +375,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Skills
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Skills />
@@ -386,14 +404,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Experience
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Experience />
@@ -415,14 +433,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Education
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Education />
@@ -444,14 +462,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Certificates
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Certificates />
@@ -473,14 +491,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Projects
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Projects />
@@ -502,14 +520,14 @@ export default function App() {
               >
                 <motion.h2
                   className="text-4xl md:text-6xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
                   Contact
                   <motion.div
-                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 blur-xl rounded-full opacity-0"
+                    className="absolute -inset-4 bg-gradient-to-r from-cyan-400/8 to-purple-500/8 blur-xl rounded-full opacity-0"
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.h2>
                 <Contact />
@@ -517,18 +535,18 @@ export default function App() {
             </motion.section>
           </main>
 
-          {/* Enhanced Footer */}
+          {/* Optimized Footer */}
           <motion.footer
             className="relative bg-slate-900/60 backdrop-blur-xl border-t border-slate-700/50 p-8 text-center"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div
               className="max-w-4xl mx-auto"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.2 }}
             >
               <motion.p
                 className="text-slate-400 text-lg"
@@ -536,7 +554,7 @@ export default function App() {
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 5,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -548,24 +566,24 @@ export default function App() {
                 className="mt-4 flex justify-center space-x-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.3 }}
               >
                 {["💻", "🚀", "⚡", "🎯"].map((emoji, index) => (
                   <motion.span
                     key={index}
                     className="text-2xl cursor-pointer"
                     whileHover={{ 
-                      scale: 1.5, 
-                      rotate: 360,
-                      transition: { duration: 0.5 }
+                      scale: 1.3, 
+                      rotate: 180,
+                      transition: { duration: 0.3 }
                     }}
                     animate={{
-                      y: [0, -10, 0],
+                      y: [0, -8, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
-                      delay: index * 0.2,
+                      delay: index * 0.3,
                       ease: "easeInOut"
                     }}
                   >
@@ -580,17 +598,17 @@ export default function App() {
           <AnimatePresence>
             {showScrollTop && (
               <motion.button
-                className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300"
+                className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-cyan-500/20 transition-all duration-200"
                 onClick={scrollToTop}
-                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                initial={{ opacity: 0, scale: 0, rotate: -90 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0, rotate: 180 }}
+                exit={{ opacity: 0, scale: 0, rotate: 90 }}
                 whileHover={{ 
-                  scale: 1.1,
-                  boxShadow: "0 20px 40px rgba(6, 182, 212, 0.4)"
+                  scale: 1.05,
+                  boxShadow: "0 15px 30px rgba(6, 182, 212, 0.3)"
                 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
                 <ChevronUp size={24} />
               </motion.button>
