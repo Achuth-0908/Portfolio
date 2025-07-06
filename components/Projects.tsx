@@ -6,7 +6,7 @@ import { Github, ExternalLink, Calendar, Code, Zap, Star, Layers } from "lucide-
 const projects = [
   {
     title: "EchoLearn – AI-Powered Speech-Aware Learning Assistant",
-    github: "https://github.com/yourusername/echolearn",
+    github: "https://github.com/Achuth-0908/echolearn-ai-tutor",
     category: "AI/ML",
     year: "2024",
     status: "completed",
@@ -20,7 +20,7 @@ const projects = [
   },
   {
     title: "MicroFi – NFT-collateralized P2P Microloan Platform",
-    github: "https://github.com/yourusername/microfi",
+    github: "https://github.com/Achuth-0908/MicroFi",
     category: "Blockchain",
     year: "2024",
     status: "completed",
@@ -48,7 +48,7 @@ const projects = [
   },
   {
     title: "HemoGuard – Anemia Predictor Web Application",
-    github: "https://github.com/yourusername/hemoguard",
+    github: "https://github.com/Achuth-0908/HemoGuard-Anemia-Predictor",
     category: "Healthcare",
     year: "2024",
     status: "completed",
@@ -62,7 +62,7 @@ const projects = [
   },
   {
     title: "Smart Umbrella with Rain Prediction System",
-    github: "https://github.com/yourusername/smart-umbrella",
+    github: "https://github.com/Achuth-0908/smart_umbrella",
     category: "IoT",
     year: "2024",
     status: "completed",
@@ -76,7 +76,7 @@ const projects = [
   },
   {
     title: "Supply Chain Management Database System",
-    github: "https://github.com/yourusername/supply-chain-db",
+    github: "https://github.com/Achuth-0908/supply-chain-data-analytics",
     category: "Database",
     year: "2024",
     status: "completed",
