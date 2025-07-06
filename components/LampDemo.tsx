@@ -96,7 +96,7 @@ export function LampDemo() {
     hover: {
       scale: 1.1,
       rotateY: 360,
-      color: "#60a5fa",
+      color: "#14b8a6",
       transition: {
         duration: 0.5,
         ease: "easeInOut"
@@ -148,7 +148,7 @@ export function LampDemo() {
     hover: {
       scale: 1.05,
       rotate: 3,
-      boxShadow: "0 15px 30px rgba(59, 130, 246, 0.3)",
+      boxShadow: "0 15px 30px rgba(20, 184, 166, 0.3)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -199,7 +199,7 @@ export function LampDemo() {
               variants={glowEffect}
               initial="initial"
               animate="animate"
-              className="absolute inset-0 bg-gradient-to-r from-blue-500/15 to-green-500/15 blur-3xl"
+              className="absolute inset-0 bg-gradient-to-r from-teal-500/15 to-violet-500/15 blur-3xl"
             />
             
             <div className="flex items-center justify-center overflow-hidden relative">
@@ -213,15 +213,15 @@ export function LampDemo() {
                   custom={i}
                   className={`text-6xl md:text-8xl font-bold inline-block relative
                              ${letter === " " ? "mx-4" : ""}
-                             bg-gradient-to-r from-blue-800 via-purple-600 to-green-500 
-                             hover:from-blue-400 hover:via-purple-400 hover:to-green-400
+                             bg-gradient-to-r from-teal-400 via-violet-500 to-purple-500 
+                             hover:from-teal-300 hover:via-violet-400 hover:to-purple-400
                              bg-clip-text text-transparent
                              transition-all duration-400
                              cursor-pointer
                              drop-shadow-2xl
                              `}
                   style={{
-                    textShadow: "0 0 20px rgba(59, 130, 246, 0.4)",
+                    textShadow: "0 0 20px rgba(20, 184, 166, 0.4)",
                     willChange: 'transform'
                   }}
                 >
@@ -249,9 +249,9 @@ export function LampDemo() {
             >
               <motion.div
                 animate={profileControls}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-2xl relative"
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-teal-500 shadow-2xl relative"
                 style={{
-                  boxShadow: "0 0 40px rgba(59, 130, 246, 0.3)",
+                  boxShadow: "0 0 40px rgba(20, 184, 166, 0.3)",
                   willChange: 'transform'
                 }}
               >
@@ -263,7 +263,7 @@ export function LampDemo() {
                 
                 {/* Rotating border effect */}
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 opacity-0"
+                  className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-teal-500 via-violet-500 to-purple-500 opacity-0"
                   whileHover={{ 
                     opacity: 1,
                     rotate: 360,
@@ -284,7 +284,7 @@ export function LampDemo() {
                 {[...Array(4)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full"
+                    className="absolute w-1.5 h-1.5 bg-teal-400 rounded-full"
                     style={{
                       top: `${20 + Math.sin(i * Math.PI / 2) * 50}%`,
                       left: `${20 + Math.cos(i * Math.PI / 2) * 50}%`,
@@ -317,7 +317,7 @@ export function LampDemo() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="bg-gradient-to-r from-slate-300 via-blue-400 to-slate-300 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-slate-300 via-teal-400 to-slate-300 bg-clip-text text-transparent"
                 style={{ backgroundSize: "200% 100%" }}
               >
                 This is me
@@ -340,7 +340,7 @@ export function LampDemo() {
                   transition={{ duration: 0.4 }}
                 >
                   <motion.span
-                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent"
+                    className="bg-gradient-to-r from-teal-400 via-violet-400 to-purple-400 bg-clip-text text-transparent"
                     animate={{
                       backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                     }}
@@ -354,7 +354,7 @@ export function LampDemo() {
                     {displayText}
                   </motion.span>
                   <motion.span
-                    className="text-blue-400 ml-1"
+                    className="text-teal-400 ml-1"
                     animate={{ opacity: showCursor ? 1 : 0 }}
                     transition={{ duration: 0.1 }}
                   >
@@ -372,9 +372,9 @@ export function LampDemo() {
                   className="text-base md:text-lg text-slate-400 mt-6 font-light italic relative z-10"
                   animate={{
                     textShadow: [
-                      "0 0 8px rgba(59, 130, 246, 0.2)",
-                      "0 0 15px rgba(59, 130, 246, 0.4)",
-                      "0 0 8px rgba(59, 130, 246, 0.2)"
+                      "0 0 8px rgba(20, 184, 166, 0.2)",
+                      "0 0 15px rgba(20, 184, 166, 0.4)",
+                      "0 0 8px rgba(20, 184, 166, 0.2)"
                     ]
                   }}
                   transition={{
@@ -391,7 +391,7 @@ export function LampDemo() {
                   {[...Array(6)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20"
+                      className="absolute w-1 h-1 bg-teal-400 rounded-full opacity-20"
                       style={{
                         top: `${Math.random() * 100}%`,
                         left: `${Math.random() * 100}%`,
