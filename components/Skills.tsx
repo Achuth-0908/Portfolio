@@ -66,15 +66,29 @@ const getCategoryColor = (category: string) => {
   return colors[category] || "from-slate-400 to-slate-600"
 }
 
+const getCategoryBorder = (category: string) => {
+  const borders = {
+    "Frontend": "border-cyan-500/30",
+    "Backend": "border-purple-500/30",
+    "AI/ML": "border-pink-500/30",
+    "Database": "border-green-500/30",
+    "Tools": "border-orange-500/30",
+    "Cloud": "border-indigo-500/30",
+    "Design": "border-violet-500/30",
+    "Concepts": "border-teal-500/30",
+  }
+  return borders[category] || "border-slate-500/30"
+}
+
 export function Skills() {
   const skillItems = skills.map((skill, index) => ({
     content: (
       <motion.div
-        className="w-full h-full flex flex-col items-center justify-center 
-                   bg-slate-900/70 backdrop-blur-sm border border-slate-700/30 
+        className={`w-full h-full flex flex-col items-center justify-center 
+                   bg-slate-900/70 backdrop-blur-sm border ${getCategoryBorder(skill.category)} 
                    rounded-2xl p-6 shadow-xl hover:shadow-cyan-500/10 
                    transition-all duration-300 relative overflow-hidden group
-                   min-w-[180px] min-h-[140px]"
+                   min-w-[180px] min-h-[140px]`}
         whileHover={{ 
           scale: 1.03,
           y: -2,
@@ -85,9 +99,36 @@ export function Skills() {
         transition={{ delay: index * 0.02, duration: 0.3 }}
         style={{ willChange: 'transform' }}
       >
-        {/* Simple hover glow */}
-        <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
-                        opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
+        {/* Gradient overlay on hover */}
+        <motion.div
+          className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                     opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
+        />
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+          {[...Array(2)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(skill.category)} rounded-full opacity-20`}
+              style={{
+                top: `${20 + i * 40}%`,
+                right: `${10 + i * 30}%`,
+              }}
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.2, 0.4, 0.2],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2 + i,
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full">
@@ -110,6 +151,12 @@ export function Skills() {
             {skill.category}
           </span>
         </div>
+
+        {/* Hover glow effect */}
+        <motion.div
+          className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(skill.category)} 
+                     opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
+        />
       </motion.div>
     ),
   }))
@@ -124,9 +171,26 @@ export function Skills() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <p className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto">
+        <motion.p 
+          className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto"
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            backgroundSize: "200% 100%",
+            background: "linear-gradient(90deg, #94a3b8, #60a5fa, #94a3b8)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent"
+          }}
+        >
           A comprehensive toolkit spanning full-stack development, AI/ML, cloud technologies, and modern design tools
-        </p>
+        </motion.p>
         
         {/* Category Legend */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -134,11 +198,12 @@ export function Skills() {
             <motion.span
               key={category}
               className={`px-3 py-1 text-xs font-medium rounded-full 
-                         bg-slate-900/60 backdrop-blur-xl border border-slate-700/50
+                         bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(category)}
                          bg-gradient-to-r ${getCategoryColor(category)} bg-clip-text text-transparent`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
             >
               {category}
             </motion.span>
@@ -188,7 +253,16 @@ export function Skills() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            <div className="text-2xl mb-2">{stat.icon}</div>
+            <motion.div 
+              className="text-2xl mb-2"
+              whileHover={{ 
+                scale: 1.2, 
+                rotate: 360,
+                transition: { duration: 0.5 }
+              }}
+            >
+              {stat.icon}
+            </motion.div>
             <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {stat.count}
             </div>
