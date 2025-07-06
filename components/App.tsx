@@ -129,6 +129,32 @@ export default function App() {
     }
   }
 
+  // Optimized floating elements
+  const floatingElements = useMemo(() => 
+    Array.from({ length: 6 }, (_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-20"
+        style={{
+          top: `${20 + (i * 15)}%`,
+          left: `${10 + (i * 12)}%`,
+        }}
+        animate={{
+          y: [-10, 10, -10],
+          x: [-5, 5, -5],
+          opacity: [0.2, 0.4, 0.2],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 4 + i * 0.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: i * 0.5
+        }}
+      />
+    )), []
+  )
+
   if (!isLoaded) {
     return (
       <div className="bg-slate-950 min-h-screen flex items-center justify-center">
@@ -146,6 +172,11 @@ export default function App() {
 
   return (
     <div className="bg-slate-950 relative overflow-x-hidden">
+      {/* Floating background elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        {floatingElements}
+      </div>
+
       <div className="relative">
         <div className="fixed inset-0 z-0">
           <Bubbles />
@@ -174,6 +205,19 @@ export default function App() {
                   variants={logoVariants}
                   whileHover="hover"
                   onClick={() => scrollToSection("#home")}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    backgroundPosition: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                  style={{
+                    backgroundSize: "200% 100%",
+                  }}
                 >
                   G ACHUTH
                 </motion.h1>
@@ -309,6 +353,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Skills
                 </motion.h2>
@@ -332,6 +377,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Experience
                 </motion.h2>
@@ -355,6 +401,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Education
                 </motion.h2>
@@ -378,6 +425,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Certificates
                 </motion.h2>
@@ -401,6 +449,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Projects
                 </motion.h2>
@@ -424,6 +473,7 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   Contact
                 </motion.h2>
@@ -457,6 +507,15 @@ export default function App() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
+                    animate={{
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.2,
+                      ease: "easeInOut"
+                    }}
                   >
                     {emoji}
                   </motion.span>
