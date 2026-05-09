@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { useState, useEffect, useMemo, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { LampDemo } from "./LampDemo"
 import { Skills } from "./Skills"
 import { Experience } from "./Experience"
@@ -8,7 +8,6 @@ import { Projects } from "./Projects"
 import { Contact } from "./Contact"
 import { Certificates } from "./Certificates"
 import { Education } from "./Education"
-import { Bubbles } from "./ui/bubbles"
 import { ChevronUp, Menu, X } from "lucide-react"
 
 const sectionVariants = {
@@ -23,7 +22,7 @@ const sectionVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
       staggerChildren: 0.05
     },
   },
@@ -45,9 +44,7 @@ export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const { scrollY } = useScroll()
 
-  // Optimized parallax effects
   const headerOpacity = useTransform(scrollY, [0, 100], [0.85, 0.95])
-  const headerBlur = useTransform(scrollY, [0, 100], [8, 12])
 
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
@@ -106,7 +103,7 @@ export default function App() {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
         staggerChildren: 0.05
       }
     }
@@ -117,12 +114,12 @@ export default function App() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" as const }
     },
     hover: {
       scale: 1.05,
       y: -1,
-      transition: { duration: 0.15, ease: "easeOut" }
+      transition: { duration: 0.15, ease: "easeOut" as const }
     }
   }
 
@@ -131,11 +128,11 @@ export default function App() {
     visible: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }
     },
     hover: {
       scale: 1.02,
-      transition: { duration: 0.2, ease: "easeOut" }
+      transition: { duration: 0.2, ease: "easeOut" as const }
     }
   }
 
@@ -151,57 +148,18 @@ export default function App() {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: [0.16, 1, 0.3, 1]
+        ease: [0.16, 1, 0.3, 1] as const
       }
     }
   }
 
-  // Reduced floating elements for better performance
-  const floatingElements = useMemo(() =>
-    Array.from({ length: 3 }, (_, i) => (
-      <motion.div
-        key={i}
-        className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-10"
-        style={{
-          top: `${25 + (i * 25)}%`,
-          left: `${15 + (i * 20)}%`,
-        }}
-        animate={{
-          y: [-10, 10, -10],
-          x: [-5, 5, -5],
-          opacity: [0.1, 0.3, 0.1],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 4 + i,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: i * 0.5
-        }}
-      />
-    )), []
-  )
-
   return (
     <div className="bg-slate-950 relative overflow-x-hidden">
-      {/* Optimized floating background elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        {floatingElements}
-      </div>
-
       <div className="relative">
-        <div className="fixed inset-0 z-0">
-          <Bubbles />
-        </div>
-
         <div className="relative z-10">
           {/* Optimized Header */}
           <motion.header
-            className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6"
-            style={{
-              backdropFilter: `blur(${headerBlur}px)`,
-              willChange: 'transform, opacity'
-            }}
+            className="fixed top-0 left-0 right-0 z-50 p-3 md:p-6 backdrop-blur-md"
             variants={headerVariants}
             initial="hidden"
             animate="visible"
@@ -215,16 +173,13 @@ export default function App() {
               }}
               transition={{ duration: 0.2 }}
             >
-              <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
+              <nav className="flex justify-between items-center max-w-7xl mx-auto px-3 sm:px-6 py-3 md:py-4">
                 <motion.h1
-                  className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 cursor-pointer"
+                  className="text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 cursor-pointer"
                   variants={logoVariants}
                   whileHover="hover"
                   onClick={() => scrollToSection("#home")}
-                  style={{
-                    backgroundSize: "200% 100%",
-                    willChange: 'transform'
-                  }}
+                  style={{ backgroundSize: "200% 100%" }}
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
@@ -350,16 +305,9 @@ export default function App() {
 
           <main className="relative text-white pt-20">
             {/* Home Section */}
-            <motion.section
-              id="home"
-              className="min-h-screen flex items-center justify-center relative"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={sectionVariants}
-            >
+            <section id="home" className="relative">
               <LampDemo />
-            </motion.section>
+            </section>
 
             {/* Skills Section */}
             <motion.section
@@ -519,49 +467,20 @@ export default function App() {
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.2 }}
             >
-              <motion.p
-                className="text-slate-400 text-lg"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
+              <p className="text-slate-400 text-lg">
                 &copy; {new Date().getFullYear()} G ACHUTH. Crafted with passion and precision.
-              </motion.p>
+              </p>
               
-              <motion.div
-                className="mt-4 flex justify-center space-x-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
+              <div className="mt-4 flex justify-center space-x-6">
                 {["💻", "🚀", "⚡", "🎯"].map((emoji, index) => (
-                  <motion.span
+                  <span
                     key={index}
-                    className="text-2xl cursor-pointer"
-                    whileHover={{ 
-                      scale: 1.2, 
-                      rotate: 180,
-                      transition: { duration: 0.3 }
-                    }}
-                    animate={{
-                      y: [0, -5, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: index * 0.2,
-                      ease: "easeInOut"
-                    }}
+                    className="text-2xl cursor-default select-none"
                   >
                     {emoji}
-                  </motion.span>
+                  </span>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
           </motion.footer>
 

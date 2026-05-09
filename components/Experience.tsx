@@ -5,9 +5,24 @@ import { Briefcase, Calendar, Building, MapPin, Clock, Star, TrendingUp } from "
 
 const experiences = [
   {
+    title: "Data Science Intern",
+    company: "AB InBev GCC India",
+    date: "January 2026 - Present",
+    type: "Internship",
+    status: "ongoing",
+    category: "Technology",
+    location: "Bengaluru, India",
+    description: "Working on data science initiatives at AB InBev's Global Capability Center, applying machine learning, optimization algorithms, and analytics to drive business insights for one of the world's largest consumer goods companies.",
+    highlights: [
+      "Developing data-driven solutions and ML models to optimize business operations",
+      "Collaborating with cross-functional teams on analytics and reporting pipelines",
+      "Leveraging large-scale datasets to generate actionable insights for decision-making"
+    ]
+  },
+  {
     title: "CNS Training Intern",
     company: "Airports Authority of India",
-    date: "June 2024 – July 2024",
+    date: "June 2024 - July 2024",
     type: "Internship",
     status: "completed",
     category: "Government",
@@ -22,11 +37,11 @@ const experiences = [
   {
     title: "Project Training Intern",
     company: "Samsung PRISM",
-    date: "June 2024 – Present",
+    date: "June 2024 - July 2025",
     type: "Research Internship",
-    status: "ongoing",
+    status: "completed",
     category: "Technology",
-    location: "Remote",
+    location: "VIT Chennai",
     description: "Contributing to cutting-edge research and development projects under Samsung's prestigious PRISM program for university collaboration.",
     highlights: [
       "Working on innovative technology solutions",
@@ -37,7 +52,7 @@ const experiences = [
   {
     title: "UI / UX Design Lead",
     company: "Newton School of Coding Club VIT-C",
-    date: "July 2024 – May 2025",
+    date: "July 2024 - May 2025",
     type: "Leadership Role",
     status: "completed",
     category: "Education",
@@ -52,7 +67,7 @@ const experiences = [
   {
     title: "Marketing and Sponsorship Lead",
     company: "CodeChef VIT-C Student Chapter",
-    date: "April 2024 – May 2025",
+    date: "April 2024 - May 2025",
     type: "Leadership Role",
     status: "completed",
     category: "Community",
@@ -67,37 +82,20 @@ const experiences = [
 ]
 
 const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.98
-  },
-  visible: (i) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      delay: i * 0.1,
+      delay: i * 0.08,
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   }),
 }
 
-const highlightVariants = {
-  hidden: { opacity: 0, x: -15 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut"
-    }
-  },
-}
-
 const getCategoryColor = (category: string) => {
-  const colors = {
+  const colors: Record<string, string> = {
     "Government": "from-blue-400 to-cyan-500",
     "Technology": "from-purple-400 to-pink-500",
     "Education": "from-green-400 to-emerald-500",
@@ -107,7 +105,7 @@ const getCategoryColor = (category: string) => {
 }
 
 const getCategoryBorder = (category: string) => {
-  const borders = {
+  const borders: Record<string, string> = {
     "Government": "border-blue-500/30",
     "Technology": "border-purple-500/30",
     "Education": "border-green-500/30",
@@ -117,240 +115,118 @@ const getCategoryBorder = (category: string) => {
 }
 
 const getTypeIcon = (type: string) => {
-  const icons = {
-    "Internship": "🎓",
-    "Research Internship": "🔬",
-    "Leadership Role": "👑",
+  const icons: Record<string, string> = {
+    "Internship": "\uD83C\uDF93",
+    "Research Internship": "\uD83D\uDD2C",
+    "Leadership Role": "\uD83D\uDC51",
   }
-  return icons[type] || "💼"
+  return icons[type] || "\uD83D\uDCBC"
 }
 
 export function Experience() {
   return (
     <div className="relative max-w-5xl mx-auto">
-      {/* Section Header */}
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5 }}
       >
-        <motion.p
-          className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto"
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
+        <p className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto">
           Professional journey spanning internships, leadership roles, and collaborative projects across diverse industries
-        </motion.p>
+        </p>
       </motion.div>
 
-      {/* Experience Timeline */}
       <div className="relative z-10 px-4">
         {experiences.map((exp, index) => (
           <motion.div
             key={index}
-            className={`mb-8 p-6 bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(exp.category)} 
-                       rounded-2xl shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 
-                       relative overflow-hidden group`}
+            className={`mb-8 p-6 bg-slate-900/60 border ${getCategoryBorder(exp.category)} 
+                       rounded-2xl shadow-xl hover:shadow-cyan-500/10 
+                       transition-all duration-300 relative overflow-hidden group`}
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={index}
-            whileHover={{ 
-              scale: 1.01,
-              boxShadow: "0 20px 40px -12px rgba(6, 182, 212, 0.15)",
-              borderColor: "rgba(6, 182, 212, 0.4)"
-            }}
-            style={{ willChange: 'transform' }}
           >
             {/* Gradient overlay on hover */}
-            <motion.div
+            <div
               className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(exp.category)} 
                          opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
             />
-            
-            {/* Reduced floating particles */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-              {[...Array(2)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full opacity-15`}
-                  style={{
-                    top: `${30 + i * 35}%`,
-                    right: `${15 + i * 25}%`,
-                  }}
-                  animate={{
-                    y: [-5, 5, -5],
-                    opacity: [0.15, 0.4, 0.15],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2 + i * 0.5,
-                    repeat: Infinity,
-                    delay: i * 0.3,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
 
-            {/* Header Section */}
+            {/* Header */}
             <div className="flex items-start justify-between mb-4 relative z-10">
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <Briefcase className={`w-6 h-6 bg-gradient-to-r ${getCategoryColor(exp.category)} bg-clip-text text-transparent`} />
-                  </motion.div>
+                <div className="flex items-center gap-3 mb-3 flex-wrap">
+                  <Briefcase className="w-5 h-5 text-cyan-400 flex-shrink-0" />
                   <h3 className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(exp.category)} leading-tight`}>
                     {exp.title}
                   </h3>
-                  <motion.div 
+                  <span
                     className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
                       exp.status === 'completed' 
                         ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
                         : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
                     }`}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
                   >
                     {exp.status === 'completed' ? (
-                      <>
-                        <Star className="w-3 h-3" />
-                        Completed
-                      </>
+                      <><Star className="w-3 h-3" /> Completed</>
                     ) : (
-                      <>
-                        <TrendingUp className="w-3 h-3" />
-                        Ongoing
-                      </>
+                      <><TrendingUp className="w-3 h-3" /> Ongoing</>
                     )}
-                  </motion.div>
+                  </span>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Building className="w-4 h-4 text-cyan-400" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <Building className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                     <span className="text-sm font-medium">{exp.company}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Calendar className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <Calendar className="w-4 h-4 text-purple-400 flex-shrink-0" />
                     <span className="text-sm">{exp.date}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Clock className="w-4 h-4 text-pink-400" />
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <Clock className="w-4 h-4 text-pink-400 flex-shrink-0" />
                     <span className="text-sm">{exp.type}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <MapPin className="w-4 h-4 text-yellow-400" />
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <MapPin className="w-4 h-4 text-yellow-400 flex-shrink-0" />
                     <span className="text-sm">{exp.location}</span>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
               
-              <motion.div
-                className="ml-4 text-3xl"
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.4 }}
-              >
-                {getTypeIcon(exp.type)}
-              </motion.div>
+              <span className="ml-4 text-3xl">{getTypeIcon(exp.type)}</span>
             </div>
 
             {/* Description */}
-            <motion.div 
-              className="mb-4 relative z-10"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {exp.description}
-              </p>
-            </motion.div>
+            <div className="mb-4 relative z-10">
+              <p className="text-sm text-slate-300 leading-relaxed">{exp.description}</p>
+            </div>
 
-            {/* Key Highlights Section */}
+            {/* Key Highlights */}
             <div className="relative z-10">
-              <motion.h4 
-                className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.span 
-                  className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full`}
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.7, 1, 0.7]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                <span className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full`} />
                 Key Highlights
-              </motion.h4>
+              </h4>
               <div className="space-y-2">
-                {exp.highlights.map((highlight, highlightIndex) => (
-                  <motion.div
-                    key={highlightIndex}
-                    className="flex items-start gap-3 text-slate-300 group/highlight"
-                    variants={highlightVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: highlightIndex * 0.05 }}
-                    whileHover={{ x: 3 }}
-                  >
-                    <motion.div 
-                      className={`w-1.5 h-1.5 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full mt-2 flex-shrink-0`}
-                      whileHover={{ scale: 1.3 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    <span className="text-xs leading-relaxed group-hover/highlight:text-white transition-colors duration-200">
-                      {highlight}
-                    </span>
-                  </motion.div>
+                {exp.highlights.map((highlight, hIdx) => (
+                  <div key={hIdx} className="flex items-start gap-3 text-slate-300">
+                    <div className={`w-1.5 h-1.5 bg-gradient-to-r ${getCategoryColor(exp.category)} rounded-full mt-2 flex-shrink-0`} />
+                    <span className="text-xs leading-relaxed">{highlight}</span>
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Progress indicator for ongoing roles */}
             {exp.status === 'ongoing' && (
-              <motion.div 
-                className="mt-4 pt-4 border-t border-slate-700/50 relative z-10"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-              >
+              <div className="mt-4 pt-4 border-t border-slate-700/50 relative z-10">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-slate-300">Role Progress</span>
                   <span className="text-sm text-cyan-400 font-medium">Active</span>
@@ -361,61 +237,14 @@ export function Experience() {
                     initial={{ width: 0 }}
                     whileInView={{ width: '60%' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                   />
                 </div>
-              </motion.div>
+              </div>
             )}
-
-            {/* Hover glow effect */}
-            <motion.div
-              className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(exp.category)} 
-                         opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
-            />
           </motion.div>
         ))}
       </div>
-
-      {/* Stats Section */}
-      <motion.div
-        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 px-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        {[
-          { label: "Total Roles", count: experiences.length, icon: "💼" },
-          { label: "Active Positions", count: experiences.filter(e => e.status === 'ongoing').length, icon: "🚀" },
-          { label: "Organizations", count: Array.from(new Set(experiences.map(e => e.company))).length, icon: "🏢" },
-          { label: "Experience", count: "2+ Years", icon: "⭐" }
-        ].map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
-            whileHover={{ 
-              scale: 1.03,
-              boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
-            }}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
-          >
-            <motion.div 
-              className="text-2xl mb-2"
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.4 }}
-            >
-              {stat.icon}
-            </motion.div>
-            <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
-              {stat.count}
-            </div>
-            <div className="text-sm text-slate-400">{stat.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
     </div>
   )
 }

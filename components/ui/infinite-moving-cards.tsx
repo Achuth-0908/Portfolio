@@ -12,6 +12,7 @@ interface InfiniteMovingCardsProps {
   items: Item[]
   direction?: "left" | "right"
   speed?: "fast" | "slow"
+  pauseOnHover?: boolean
   className?: string
 }
 
@@ -19,22 +20,29 @@ export const InfiniteMovingCards = ({
   items,
   direction = "right",
   speed = "fast",
+  pauseOnHover = false,
   className,
 }: InfiniteMovingCardsProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [containerWidth, setContainerWidth] = useState(0)
   const [duplicatedItems, setDuplicatedItems] = useState<Item[]>([])
+  const [isPaused, setIsPaused] = useState(false)
   const controls = useAnimation()
   const x = useMotionValue(0)
 
-  const CARD_WIDTH = 300
-  const GAP = 16
+  const CARD_WIDTH = 220
+  const GAP = 12
   const EFFECTIVE_CARD_WIDTH = CARD_WIDTH + GAP
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth)
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth)
+      }
     }
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
   }, [])
 
   useEffect(() => {
@@ -46,8 +54,9 @@ export const InfiniteMovingCards = ({
   }, [items, containerWidth])
 
   const startAutoScroll = () => {
+    if (isPaused) return
     const totalWidth = duplicatedItems.length * EFFECTIVE_CARD_WIDTH
-    const speedFactor = speed === "fast" ? 20 : 40
+    const speedFactor = speed === "fast" ? 25 : 45
 
     controls.start({
       x: direction === "right" ? -totalWidth : totalWidth,
@@ -60,10 +69,10 @@ export const InfiniteMovingCards = ({
   }
 
   useEffect(() => {
-    if (duplicatedItems.length > 0) {
+    if (duplicatedItems.length > 0 && !isPaused) {
       startAutoScroll()
     }
-  }, [duplicatedItems])
+  }, [duplicatedItems, isPaused])
 
   const handleManualScroll = (dir: "left" | "right") => {
     controls.stop()
@@ -78,32 +87,36 @@ export const InfiniteMovingCards = ({
   }
 
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute top-1/2 left-2 z-20 transform -translate-y-1/2">
+    <div 
+      className={`relative ${className}`}
+      onMouseEnter={() => { if (pauseOnHover) { setIsPaused(true); controls.stop() } }}
+      onMouseLeave={() => { if (pauseOnHover) { setIsPaused(false) } }}
+    >
+      <div className="absolute top-1/2 left-1 sm:left-2 z-20 transform -translate-y-1/2">
         <button
           onClick={() => handleManualScroll("left")}
-          className="bg-blue-700 text-white p-2 rounded-full shadow hover:bg-blue-600"
+          className="bg-slate-800/80 backdrop-blur-sm text-cyan-400 p-1.5 sm:p-2 rounded-full shadow-lg hover:bg-slate-700/80 border border-slate-600/50 hover:border-cyan-500/50 transition-all duration-200"
         >
           ◀
         </button>
       </div>
-      <div className="absolute top-1/2 right-2 z-20 transform -translate-y-1/2">
+      <div className="absolute top-1/2 right-1 sm:right-2 z-20 transform -translate-y-1/2">
         <button
           onClick={() => handleManualScroll("right")}
-          className="bg-blue-700 text-white p-2 rounded-full shadow hover:bg-blue-600"
+          className="bg-slate-800/80 backdrop-blur-sm text-cyan-400 p-1.5 sm:p-2 rounded-full shadow-lg hover:bg-slate-700/80 border border-slate-600/50 hover:border-cyan-500/50 transition-all duration-200"
         >
           ▶
         </button>
       </div>
 
-      <div ref={containerRef} className="overflow-hidden">
+      <div ref={containerRef} className="overflow-hidden px-8 sm:px-10">
         <motion.div
           style={{ x }}
           animate={controls}
-          className="flex"
+          className="flex gap-3"
         >
           {duplicatedItems.map((item, idx) => (
-            <div key={idx} className="flex-shrink-0 w-[300px] h-[200px] mx-2">
+            <div key={idx} className="flex-shrink-0 w-[180px] sm:w-[220px] h-[160px] sm:h-[180px]">
               {item.content}
             </div>
           ))}

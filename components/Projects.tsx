@@ -1,11 +1,40 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, ExternalLink, Calendar, Code, Zap, Star, Layers } from "lucide-react"
+import { Github, ExternalLink, Calendar, Code, Star, Layers } from "lucide-react"
 
 const projects = [
   {
-    title: "EchoLearn – AI-Powered Speech-Aware Learning Assistant",
+    title: "Shopify Multi-Tenant Analytics Platform",
+    github: "https://github.com/Achuth-0908/shopify-analytics-backend",
+    live: "https://shopify-multi-tenant-analytics.vercel.app",
+    category: "Full Stack",
+    year: "2025",
+    status: "completed",
+    tech: ["Next.js", "Express.js", "PostgreSQL", "Sequelize", "Tailwind CSS", "Recharts", "Vercel", "Railway"],
+    description: "A production-grade multi-tenant Shopify analytics platform enabling enterprise retailers to onboard multiple stores, sync data automatically, and gain real-time business intelligence with complete tenant isolation.",
+    features: [
+      "Architected multi-tenant system with complete data isolation, syncing 185 orders, 69 customers, and 60 products across 2 Shopify stores",
+      "Built analytics dashboard with KPIs, revenue trends, top customers, and product performance using Recharts",
+      "Achieved sub-200ms API response times with optimized PostgreSQL indexing, rate limiting, and Helmet.js security"
+    ],
+  },
+  {
+    title: "Healthcare Symptom Checker - AI Medical Assistant",
+    github: "https://github.com/Achuth-0908/Healthcare-Symptom-Checker",
+    category: "Healthcare",
+    year: "2025",
+    status: "completed",
+    tech: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL", "ChromaDB", "Gemini", "Groq", "Jina AI", "Docker"],
+    description: "A full-stack AI-powered medical symptom analysis system with emergency detection, multi-turn conversations, RAG-based medical knowledge retrieval, and a 775+ condition database.",
+    features: [
+      "Implemented dual-LLM pipeline (Gemini + Groq) with RAG using ChromaDB and Jina AI embeddings for 775+ medical conditions",
+      "Built real-time emergency triage detecting life-threatening symptoms with severity scoring and 911 integration",
+      "Designed multi-turn conversation manager with session persistence, audit logging, and comprehensive API documentation"
+    ],
+  },
+  {
+    title: "EchoLearn - AI-Powered Speech-Aware Learning Assistant",
     github: "https://github.com/Achuth-0908/echolearn-ai-tutor",
     category: "AI/ML",
     year: "2025",
@@ -19,7 +48,7 @@ const projects = [
     ],
   },
   {
-    title: "MicroFi – NFT-collateralized P2P Microloan Platform",
+    title: "MicroFi - NFT-collateralized P2P Microloan Platform",
     github: "https://github.com/Achuth-0908/MicroFi",
     category: "Blockchain",
     year: "2025",
@@ -33,7 +62,7 @@ const projects = [
     ],
   },
   {
-    title: "FarmVest – Online Marketplace for Farmers and Consumers",
+    title: "FarmVest - Online Marketplace for Farmers and Consumers",
     github: "https://github.com/yourusername/farmvest",
     category: "Mobile App",
     year: "2024",
@@ -47,7 +76,7 @@ const projects = [
     ],
   },
   {
-    title: "HemoGuard – Anemia Predictor Web Application",
+    title: "HemoGuard - Anemia Predictor Web Application",
     github: "https://github.com/Achuth-0908/HemoGuard-Anemia-Predictor",
     category: "Healthcare",
     year: "2024",
@@ -91,37 +120,21 @@ const projects = [
 ]
 
 const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.98
-  },
-  visible: (i) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      delay: i * 0.1,
+      delay: i * 0.08,
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   }),
 }
 
-const featureVariants = {
-  hidden: { opacity: 0, x: -15 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut"
-    }
-  },
-}
-
 const getCategoryColor = (category: string) => {
-  const colors = {
+  const colors: Record<string, string> = {
+    "Full Stack": "from-cyan-400 to-blue-500",
     "AI/ML": "from-pink-400 to-rose-500",
     "Blockchain": "from-purple-400 to-indigo-500",
     "Mobile App": "from-green-400 to-emerald-500",
@@ -133,7 +146,8 @@ const getCategoryColor = (category: string) => {
 }
 
 const getCategoryBorder = (category: string) => {
-  const borders = {
+  const borders: Record<string, string> = {
+    "Full Stack": "border-cyan-500/30",
     "AI/ML": "border-pink-500/30",
     "Blockchain": "border-purple-500/30",
     "Mobile App": "border-green-500/30",
@@ -145,285 +159,172 @@ const getCategoryBorder = (category: string) => {
 }
 
 const getCategoryIcon = (category: string) => {
-  const icons = {
-    "AI/ML": "🤖",
-    "Blockchain": "⛓️",
-    "Mobile App": "📱",
-    "Healthcare": "🏥",
-    "IoT": "🌐",
-    "Database": "🗄️",
+  const icons: Record<string, string> = {
+    "Full Stack": "\uD83D\uDE80",
+    "AI/ML": "\uD83E\uDD16",
+    "Blockchain": "\u26D3\uFE0F",
+    "Mobile App": "\uD83D\uDCF1",
+    "Healthcare": "\uD83C\uDFE5",
+    "IoT": "\uD83C\uDF10",
+    "Database": "\uD83D\uDDC4\uFE0F",
   }
-  return icons[category] || "💻"
+  return icons[category] || "\uD83D\uDCBB"
 }
 
 export function Projects() {
   return (
     <div className="relative max-w-6xl mx-auto">
-      {/* Section Header */}
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5 }}
       >
-        <motion.p
-          className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto"
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
+        <p className="text-lg text-slate-400 mb-6 max-w-3xl mx-auto">
           A showcase of innovative projects spanning AI/ML, blockchain, mobile development, and IoT solutions
-        </motion.p>
+        </p>
       </motion.div>
 
-      {/* Projects Grid */}
       <div className="relative z-10 px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className={`p-6 bg-slate-900/60 backdrop-blur-xl border ${getCategoryBorder(project.category)} 
-                       rounded-2xl shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 
-                       relative overflow-hidden group cursor-pointer h-full flex flex-col`}
+            className={`p-6 bg-slate-900/60 border ${getCategoryBorder(project.category)} 
+                       rounded-2xl shadow-xl hover:shadow-cyan-500/10 
+                       transition-all duration-300 relative overflow-hidden group h-full flex flex-col`}
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={index}
-            whileHover={{ 
-              scale: 1.01,
-              boxShadow: "0 20px 40px -12px rgba(6, 182, 212, 0.15)",
-              borderColor: "rgba(6, 182, 212, 0.4)"
-            }}
-            style={{ willChange: 'transform' }}
           >
             {/* Gradient overlay on hover */}
-            <motion.div
+            <div
               className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor(project.category)} 
                          opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
             />
-            
-            {/* Reduced floating particles */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-              {[...Array(2)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute w-1 h-1 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full opacity-15`}
-                  style={{
-                    top: `${30 + i * 35}%`,
-                    right: `${15 + i * 25}%`,
-                  }}
-                  animate={{
-                    y: [-5, 5, -5],
-                    opacity: [0.15, 0.4, 0.15],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2 + i * 0.5,
-                    repeat: Infinity,
-                    delay: i * 0.3,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
 
-            {/* Header Section */}
+            {/* Header */}
             <div className="flex items-start justify-between mb-4 relative z-10">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-2xl"
-                  >
-                    {getCategoryIcon(project.category)}
-                  </motion.div>
+                  <span className="text-2xl">{getCategoryIcon(project.category)}</span>
                   <h3 className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getCategoryColor(project.category)} leading-tight`}>
                     {project.title}
                   </h3>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Layers className="w-4 h-4 text-cyan-400" />
                     <span className="text-sm font-medium">{project.category}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Calendar className="w-4 h-4 text-purple-400" />
                     <span className="text-sm">{project.year}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex items-center gap-2 text-slate-300"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
                     <Star className="w-4 h-4 text-yellow-400" />
                     <span className="text-sm capitalize">{project.status}</span>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
               
-              <motion.div
-                className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700/50 group-hover:border-cyan-500/50 transition-colors duration-300"
-                whileHover={{ scale: 1.1, rotate: 45 }}
-                transition={{ duration: 0.3 }}
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700/50 hover:border-cyan-500/50 transition-colors duration-300"
+                onClick={(e) => e.stopPropagation()}
               >
-                <Github className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition-colors duration-300" />
-              </motion.div>
+                <Github className="w-4 h-4 text-slate-400 hover:text-cyan-400 transition-colors duration-200" />
+              </a>
             </div>
 
             {/* Description */}
-            <motion.div 
-              className="mb-4 relative z-10 flex-grow"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                {project.description}
-              </p>
-            </motion.div>
+            <div className="mb-4 relative z-10 flex-grow">
+              <p className="text-sm text-slate-300 leading-relaxed mb-4">{project.description}</p>
+            </div>
 
-            {/* Features Section */}
+            {/* Features */}
             <div className="relative z-10 mb-4">
-              <motion.h4 
-                className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.span 
-                  className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full`}
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.7, 1, 0.7]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                <span className={`w-2 h-2 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full`} />
                 Key Features
-              </motion.h4>
+              </h4>
               <div className="space-y-2">
-                {project.features.map((feature, featureIndex) => (
-                  <motion.div
-                    key={featureIndex}
-                    className="flex items-start gap-3 text-slate-300 group/feature"
-                    variants={featureVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: featureIndex * 0.05 }}
-                    whileHover={{ x: 3 }}
-                  >
-                    <motion.div 
-                      className={`w-1.5 h-1.5 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full mt-2 flex-shrink-0`}
-                      whileHover={{ scale: 1.3 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    <span className="text-xs leading-relaxed group-hover/feature:text-white transition-colors duration-200">
-                      {feature}
-                    </span>
-                  </motion.div>
+                {project.features.map((feature, fIdx) => (
+                  <div key={fIdx} className="flex items-start gap-3 text-slate-300">
+                    <div className={`w-1.5 h-1.5 bg-gradient-to-r ${getCategoryColor(project.category)} rounded-full mt-2 flex-shrink-0`} />
+                    <span className="text-xs leading-relaxed">{feature}</span>
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* Tech Stack Section */}
+            {/* Tech Stack */}
             <div className="relative z-10 mt-auto">
-              <motion.h4 
-                className="text-sm font-semibold text-white mb-3 flex items-center gap-2"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 <Code className="w-3 h-3 text-cyan-400" />
                 Tech Stack
-              </motion.h4>
+              </h4>
               <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech, techIndex) => (
-                  <motion.span
-                    key={techIndex}
+                {project.tech.map((tech, tIdx) => (
+                  <span
+                    key={tIdx}
                     className={`px-2 py-1 text-xs font-medium rounded-full 
-                               bg-slate-800/60 backdrop-blur-sm border ${getCategoryBorder(project.category)}
+                               bg-slate-800/60 border ${getCategoryBorder(project.category)}
                                text-slate-300 hover:text-white transition-colors duration-200`}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: techIndex * 0.03 }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      backgroundColor: "rgba(6, 182, 212, 0.1)"
-                    }}
                   >
                     {tech}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </div>
 
-            {/* Hover glow effect */}
-            <motion.div
-              className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getCategoryColor(project.category)} 
-                         opacity-0 group-hover:opacity-8 blur-xl transition-opacity duration-300`}
-            />
+            {/* Live link for projects that have one */}
+            {project.live && (
+              <div className="relative z-10 mt-4 pt-4 border-t border-slate-700/50">
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 transition-colors duration-200"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View Live Demo
+                </a>
+              </div>
+            )}
           </motion.div>
         ))}
       </div>
 
-      {/* Stats Section */}
+      {/* Stats */}
       <motion.div
         className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 px-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
       >
         {[
-          { label: "Projects", count: projects.length, icon: "🚀" },
-          { label: "Categories", count: Array.from(new Set(projects.map(p => p.category))).length, icon: "📂" },
-          { label: "Technologies", count: Array.from(new Set(projects.flatMap(p => p.tech))).length, icon: "⚡" },
-          { label: "Completed", count: projects.filter(p => p.status === 'completed').length, icon: "✅" }
-        ].map((stat, index) => (
-          <motion.div
+          { label: "Projects", count: projects.length, icon: "\uD83D\uDE80" },
+          { label: "Categories", count: Array.from(new Set(projects.map(p => p.category))).length, icon: "\uD83D\uDCC2" },
+          { label: "Technologies", count: Array.from(new Set(projects.flatMap(p => p.tech))).length, icon: "\u26A1" },
+          { label: "Completed", count: projects.filter(p => p.status === 'completed').length, icon: "\u2705" }
+        ].map((stat) => (
+          <div
             key={stat.label}
-            className="text-center p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl"
-            whileHover={{ 
-              scale: 1.03,
-              boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
-            }}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
+            className="text-center p-4 bg-slate-900/60 border border-slate-700/50 rounded-2xl hover:border-cyan-500/30 transition-colors duration-300"
           >
-            <motion.div 
-              className="text-2xl mb-2"
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.4 }}
-            >
-              {stat.icon}
-            </motion.div>
+            <div className="text-2xl mb-2">{stat.icon}</div>
             <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {stat.count}
             </div>
             <div className="text-sm text-slate-400">{stat.label}</div>
-          </motion.div>
+          </div>
         ))}
       </motion.div>
     </div>

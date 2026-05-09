@@ -43,7 +43,7 @@ const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1]
+      ease: [0.16, 1, 0.3, 1] as const
     }
   },
 }
@@ -88,14 +88,6 @@ export function Contact() {
       >
         <motion.p
           className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto"
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
         >
           Let's connect and explore opportunities to collaborate on exciting projects
         </motion.p>
